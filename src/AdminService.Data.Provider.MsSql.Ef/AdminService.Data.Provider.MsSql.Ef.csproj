@@ -8,4 +8,13 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdminService.Data.Provider\AdminService.Data.Provider.csproj" />
+    <ProjectReference Include="..\AdminService.Models.Db\AdminService.Models.Db.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -8,4 +8,9 @@
     <Folder Include="Consumers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AdminService.Data\AdminService.Data.csproj" />
+    <ProjectReference Include="..\AdminService.Mappers\AdminService.Mappers.csproj" />
+  </ItemGroup>
+
 </Project>

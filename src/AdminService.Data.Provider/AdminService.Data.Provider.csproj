@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AdminService.Models.Db\AdminService.Models.Db.csproj" />
+  </ItemGroup>
+
 </Project>

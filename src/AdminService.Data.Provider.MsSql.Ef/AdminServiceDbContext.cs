@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace AdminService.Data.Provider.MsSql.Ef
 {
-    public class AdminServiceDbContext
-    {
-    }
+  public class AdminServiceDbContext : DbContext, IDataProvider
+  {
+  }
 }
