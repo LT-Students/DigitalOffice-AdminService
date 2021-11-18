@@ -3,11 +3,20 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MassTransit;
 
 namespace AdminService
 {
   public class Startup
   {
+
+    private readonly RabbitMqConfig _rabbitMqConfig;
+    //private readonly BaseServiceInfoConfig _serviceInfoConfig;
+
+
+
+
+
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
