@@ -1,18 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+  <Import Project="$(ProjectDir)..\..\Common.Configurations.targets" />
 
   <ItemGroup>
-    <PackageReference Include="LT.DigitalOffice.Kernel" Version="1.1.51" />
-    <PackageReference Include="LT.DigitalOffice.Models" Version="1.0.46" />
-    <PackageReference Include="MassTransit" Version="7.2.4" />
-    <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\AdminService.Data.Provider\AdminService.Data.Provider.csproj" />
+    <ProjectReference Include="..\AdminService.Data\AdminService.Data.csproj" />
+    <ProjectReference Include="..\AdminService.Models.Dto\AdminService.Models.Dto.csproj" />
+    <ProjectReference Include="..\AdminService.Data\AdminService.Data.csproj" />
     <ProjectReference Include="..\AdminService.Models.Dto\AdminService.Models.Dto.csproj" />
   </ItemGroup>
 
