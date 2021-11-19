@@ -24,7 +24,7 @@ using LT.DigitalOffice.Kernel.Helpers.Interfaces;
 using AdminService.Data.Provider.MsSql.Ef;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using LT.DigitalOffice.CompanyService.Broker.Consumers;
+//using AdminService.Broker.Consumers;
 using LT.DigitalOffice.UserService.Models.Dto.Configurations;
 
 namespace AdminService
@@ -212,7 +212,6 @@ namespace AdminService
 
       services.AddMassTransit(x =>
       {
-        x.AddConsumer<GetSmtpCredentialsConsumer>();
 
         x.UsingRabbitMq((context, cfg) =>
         {
@@ -222,7 +221,6 @@ namespace AdminService
                 host.Password(password);
             });
 
-            ConfigureEndpoints(context, cfg);
         });
 
         x.AddRequestClients(_rabbitMqConfig);
@@ -231,15 +229,6 @@ namespace AdminService
       services.AddMassTransitHostedService();
      }
 
-     private void ConfigureEndpoints(
-      IBusRegistrationContext context,
-      IRabbitMqBusFactoryConfigurator cfg)
-     {
-      cfg.ReceiveEndpoint(_rabbitMqConfig.GetSmtpCredentialsEndpoint, ep =>
-      {
-        ep.ConfigureConsumer<GetSmtpCredentialsConsumer>(context);
-      });
-     }
 
      private void UpdateDatabase(IApplicationBuilder app)
      {
