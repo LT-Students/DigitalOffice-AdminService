@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(ProjectDir)..\..\Common.Configurations.targets" />
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdminService.Data.Provider\AdminService.Data.Provider.csproj" />
+    <ProjectReference Include="..\AdminService.Models.Db\AdminService.Models.Db.csproj" />
+  </ItemGroup>
+
+</Project>
