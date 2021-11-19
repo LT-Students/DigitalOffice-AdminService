@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace AdminService.Data.Provider.MsSql.Ef
 {
@@ -9,5 +8,5 @@ namespace AdminService.Data.Provider.MsSql.Ef
       : base(options)
     {
     }
-  }
+    }
 }
