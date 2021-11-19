@@ -10,29 +10,30 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution 
 		.gitignore = .gitignore
 		Common.Configurations.targets = Common.Configurations.targets
 		Dockerfile = Dockerfile
+		.github\workflows\main.yml = .github\workflows\main.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{10383731-E84D-4465-ADB1-919F075CA779}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminService", "src\AdminService\AdminService.csproj", "{4990ECD8-D127-4079-AD5D-606000794B89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminService", "src\AdminService\AdminService.csproj", "{4990ECD8-D127-4079-AD5D-606000794B89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminService.Broker", "src\AdminService.Broker\AdminService.Broker.csproj", "{4DB508A8-B822-433D-8A49-E1B1AE10F700}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminService.Broker", "src\AdminService.Broker\AdminService.Broker.csproj", "{4DB508A8-B822-433D-8A49-E1B1AE10F700}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminService.Business", "src\AdminService.Business\AdminService.Business.csproj", "{471825F0-743D-407A-8480-50A1B4F2E620}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminService.Business", "src\AdminService.Business\AdminService.Business.csproj", "{471825F0-743D-407A-8480-50A1B4F2E620}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminService.Data", "src\AdminService.Data\AdminService.Data.csproj", "{EB260D7A-8B8A-48BA-9F51-1895AD116A5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminService.Data", "src\AdminService.Data\AdminService.Data.csproj", "{EB260D7A-8B8A-48BA-9F51-1895AD116A5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminService.Data.Provider", "src\AdminService.Data.Provider\AdminService.Data.Provider.csproj", "{031ADF89-EF6A-4C73-AE8C-21C0D53B7B8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminService.Data.Provider", "src\AdminService.Data.Provider\AdminService.Data.Provider.csproj", "{031ADF89-EF6A-4C73-AE8C-21C0D53B7B8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminService.Data.Provider.MsSql.Ef", "src\AdminService.Data.Provider.MsSql.Ef\AdminService.Data.Provider.MsSql.Ef.csproj", "{49A3782D-19C7-4EEB-9756-436B8EDCF678}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminService.Data.Provider.MsSql.Ef", "src\AdminService.Data.Provider.MsSql.Ef\AdminService.Data.Provider.MsSql.Ef.csproj", "{49A3782D-19C7-4EEB-9756-436B8EDCF678}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminService.Mappers", "src\AdminService.Mappers\AdminService.Mappers.csproj", "{D7F83C97-32AD-44C6-94DE-E53C8CBFBE8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminService.Mappers", "src\AdminService.Mappers\AdminService.Mappers.csproj", "{D7F83C97-32AD-44C6-94DE-E53C8CBFBE8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminService.Models.Db", "src\AdminService.Models.Db\AdminService.Models.Db.csproj", "{AEA20F93-E4FB-4802-A77B-7C13781F832E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminService.Models.Db", "src\AdminService.Models.Db\AdminService.Models.Db.csproj", "{AEA20F93-E4FB-4802-A77B-7C13781F832E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminService.Models.Dto", "src\AdminService.Models.Dto\AdminService.Models.Dto.csproj", "{CA4D594A-41D5-4F4D-A180-04EEB26A676B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminService.Models.Dto", "src\AdminService.Models.Dto\AdminService.Models.Dto.csproj", "{CA4D594A-41D5-4F4D-A180-04EEB26A676B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminService.Validation", "src\AdminService.Validation\AdminService.Validation.csproj", "{BBD41603-9493-4C6E-B70D-0220A3C0EF8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminService.Validation", "src\AdminService.Validation\AdminService.Validation.csproj", "{BBD41603-9493-4C6E-B70D-0220A3C0EF8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
