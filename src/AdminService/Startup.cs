@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
-using AdminService.Data.Provider.MsSql.Ef;
-using AdminService.Models.Dto.Configuration;
+using LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef;
+using LT.DigitalOffice.AdminService.Models.Dto.Configuration;
 using HealthChecks.UI.Client;
 using LT.DigitalOffice.Kernel.Configurations;
 using LT.DigitalOffice.Kernel.Extensions;
@@ -23,7 +23,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using StackExchange.Redis;
 
-namespace AdminService
+namespace LT.DigitalOffice.AdminService
 {
   public class Startup : BaseApiInfo
   {

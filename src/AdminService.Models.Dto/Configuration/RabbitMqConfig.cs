@@ -2,11 +2,11 @@
 using LT.DigitalOffice.Kernel.Configurations;
 using LT.DigitalOffice.Models.Broker.Requests.User;
 
-namespace AdminService.Models.Dto.Configuration
+namespace LT.DigitalOffice.AdminService.Models.Dto.Configuration
 {
   public class RabbitMqConfig : BaseRabbitMqConfig
   {
-    public string GetSmtpCredentialsEndpoint { get; set; }
+    public string UpdateSmtpCredentialsEndpoint { get; set; }
 
     [AutoInjectRequest(typeof(ICreateAdminRequest))]
     public string CreateAdminEndpoint { get; set; }
