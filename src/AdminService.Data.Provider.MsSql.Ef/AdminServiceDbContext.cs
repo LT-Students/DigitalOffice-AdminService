@@ -1,5 +1,7 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using LT.DigitalOffice.AdminService.Models.Db;
 using Microsoft.EntityFrameworkCore;
 
 namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef
@@ -10,6 +12,10 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef
     : base(options)
     {
     }
+
+    public IQueryable<DbServiceConfiguration> ServicesConfigurations => _servicesConfigurations.AsQueryable();
+
+    private DbSet<DbServiceConfiguration> _servicesConfigurations { get; set; }
 
     // Fluent API is written here.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
