@@ -1,11 +1,17 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using LT.DigitalOffice.AdminService.Models.Db;
 using Microsoft.EntityFrameworkCore;
 
 namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef
 {
   public class AdminServiceDbContext : DbContext, IDataProvider
   {
+    private DbSet<DbServiceConfiguration> _servicesConfigurations { get; set; }
+
+    public IQueryable<DbServiceConfiguration> ServicesConfigurations => _servicesConfigurations.AsQueryable();
+
     public AdminServiceDbContext(DbContextOptions<AdminServiceDbContext> options)
     : base(options)
     {
