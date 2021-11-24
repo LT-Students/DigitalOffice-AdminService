@@ -37,215 +37,25 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef.Migrations
           "uniqueidentifier",
           "datetime2"
         },
-        values: new object[] { Guid.NewGuid(), "TimeService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "TaskService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "StreamService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "SearchService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "RightsService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "ProjectService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "PositionService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "OfficeService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "NewsService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "MessageService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "ImageService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "HistoryService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "FileService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "EducationService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "DepartmentService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "CompanyService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
-        values: new object[] { Guid.NewGuid(), "AchievementService", true, null, null });
+        values: new object[,] {
+          { Guid.NewGuid(), "TimeService", true, null, null },
+          { Guid.NewGuid(), "TaskService", true, null, null },
+          { Guid.NewGuid(), "StreamService", true, null, null },
+          { Guid.NewGuid(), "SearchService", true, null, null },
+          { Guid.NewGuid(), "RightsService", true, null, null },
+          { Guid.NewGuid(), "ProjectService", true, null, null },
+          { Guid.NewGuid(), "PositionService", true, null, null },
+          { Guid.NewGuid(), "OfficeService", true, null, null },
+          { Guid.NewGuid(), "NewsService", true, null, null },
+          { Guid.NewGuid(), "MessageService", true, null, null },
+          { Guid.NewGuid(), "ImageService", true, null, null },
+          { Guid.NewGuid(), "HistoryService", true, null, null },
+          { Guid.NewGuid(), "FileService", true, null, null },
+          { Guid.NewGuid(), "EducationService", true, null, null },
+          { Guid.NewGuid(), "DepartmentService", true, null, null },
+          { Guid.NewGuid(), "CompanyService", true, null, null },
+          { Guid.NewGuid(), "AchievementService", true, null, null }
+        });
     }
 
     protected override void Down(MigrationBuilder builder)
