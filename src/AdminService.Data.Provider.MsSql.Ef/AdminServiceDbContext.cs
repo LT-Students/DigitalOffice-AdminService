@@ -8,14 +8,14 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef
 {
   public class AdminServiceDbContext : DbContext, IDataProvider
   {
+    private DbSet<DbServiceConfiguration> _servicesConfigurations { get; set; }
+
+    public IQueryable<DbServiceConfiguration> ServicesConfigurations => _servicesConfigurations.AsQueryable();
+
     public AdminServiceDbContext(DbContextOptions<AdminServiceDbContext> options)
     : base(options)
     {
     }
-
-    public IQueryable<DbServiceConfiguration> ServicesConfigurations => _servicesConfigurations.AsQueryable();
-
-    private DbSet<DbServiceConfiguration> _servicesConfigurations { get; set; }
 
     // Fluent API is written here.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
