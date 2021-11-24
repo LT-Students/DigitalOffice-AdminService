@@ -245,19 +245,6 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef.Migrations
           "uniqueidentifier",
           "datetime2"
         },
-        values: new object[] { Guid.NewGuid(), "AuthService", true, null, null });
-
-      builder.InsertData(
-        table: DbServiceConfiguration.TableName,
-        columns: new[] { "Id", "ServiceName", "IsActive", "ModifiedBy", "ModifiedAtUtc" },
-        columnTypes: new string[]
-        {
-          "uniqueidentifier",
-          "nvarchar(max)",
-          "bit",
-          "uniqueidentifier",
-          "datetime2"
-        },
         values: new object[] { Guid.NewGuid(), "AchievementService", true, null, null });
     }
 
