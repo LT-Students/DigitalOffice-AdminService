@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LT.DigitalOffice.AdminService.Data.Interfaces
 {
-    public class IServiceConfigurationRepository
+    public interface IServiceConfigurationRepository
     {
     }
 }
