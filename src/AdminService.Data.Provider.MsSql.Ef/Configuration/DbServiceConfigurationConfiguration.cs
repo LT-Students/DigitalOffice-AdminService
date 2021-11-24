@@ -17,10 +17,6 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef.Configuration
       builder
         .Property(sc => sc.ServiceName)
         .IsRequired();
-
-      builder
-        .Property(sc => sc.IsActive)
-        .IsRequired();
     }
   }
 }
