@@ -16,8 +16,7 @@ namespace LT.DigitalOffice.AdminService.Controllers
       [FromServices] IFindAdminCommand command,
       [FromQuery] FindAdminFilter filter)
     {
-      // return await command.ExecuteAsync(filter);
-      return null;
+       return await command.ExecuteAsync(filter);
     }
   }
 }

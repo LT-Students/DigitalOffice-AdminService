@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LT.DigitalOffice.AdminService.Models.Db;
+using LT.DigitalOffice.AdminService.Models.Dto.Models;
+using LT.DigitalOffice.Kernel.Attributes;
 
 namespace LT.DigitalOffice.AdminService.Mappers.Interfaces
 {
-    public interface IConfigurationServicesInfoMapper
-    {
-    }
+  [AutoInject]
+  public interface IConfigurationServicesInfoMapper
+  {
+    ConfigurationServicesInfo Map(DbServiceConfiguration dbconfig);
+  }
 }
