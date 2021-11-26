@@ -49,13 +49,13 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
 
       List<DbServiceConfiguration> dbConfig = null; 
       FindResultResponse<ConfigurationServicesInfo> response = new();
-    //  response.Body = new();
+      response.Body = new();
 
-      (List<DbServiceConfiguration> dbConfig, int TotalCount) findServicesResponse =
+      (List<DbServiceConfiguration> dbConfig, int totalCount) findServicesResponse =
         await _configrepository.FindAsync(filter);
 
       dbConfig = findServicesResponse.dbConfig;
-      response.TotalCount = findServicesResponse.TotalCount;
+      response.TotalCount = findServicesResponse.totalCount;
       
       response.Body.AddRange(dbConfig.Select(dbConfig => _configmapper.Map(dbConfig)));
 

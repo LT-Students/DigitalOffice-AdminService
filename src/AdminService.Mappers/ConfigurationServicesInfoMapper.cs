@@ -4,7 +4,7 @@ using LT.DigitalOffice.AdminService.Models.Dto.Models;
 
 namespace LT.DigitalOffice.AdminService.Mappers
 {
-  internal class ConfigurationServicesInfoMapper : IConfigurationServicesInfoMapper
+  public class ConfigurationServicesInfoMapper : IConfigurationServicesInfoMapper
   {
     public ConfigurationServicesInfo Map(DbServiceConfiguration dbconfig)
     {
