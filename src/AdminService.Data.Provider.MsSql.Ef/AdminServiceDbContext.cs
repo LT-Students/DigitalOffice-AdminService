@@ -8,11 +8,11 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef
 {
   public class AdminServiceDbContext : DbContext, IDataProvider
   {
-    private DbSet<DbServiceConfiguration> _servicesConfigurations { get; set; }
+    private DbSet<DbServiceConfiguration> ServicesConfigurations { get; set; }
 
-    public IQueryable<DbServiceConfiguration> ServicesConfigurations => _servicesConfigurations.AsQueryable();
+    public IQueryable<DbServiceConfiguration> ServicesConfigurationsQueryable  => ServicesConfigurations.AsQueryable();
 
-    public AdminServiceDbContext(DbContextOptions<AdminServiceDbContext> options)
+    public AdminServiceDbContext(DbContextOptions<AdminServiceDbContext> options) 
     : base(options)
     {
     }

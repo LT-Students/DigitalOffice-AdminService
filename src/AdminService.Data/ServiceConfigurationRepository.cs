@@ -18,12 +18,12 @@ namespace LT.DigitalOffice.AdminService.Data
     }
     public async Task<(List<DbServiceConfiguration> dbconfig, int totalCount)> FindAsync(FindAdminFilter filter)
     {
-      if(filter == null)
+      if(filter is null)
       {
         return (null, default);
       }
 
-      IQueryable<DbServiceConfiguration> dbconfig = _provider.ServicesConfigurations.AsQueryable();
+      IQueryable<DbServiceConfiguration> dbconfig = _provider.ServicesConfigurationsQueryable;
 
       return (
         await dbconfig.Skip(filter.SkipCount).Take(filter.TakeCount).ToListAsync(),

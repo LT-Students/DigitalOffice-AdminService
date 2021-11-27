@@ -9,6 +9,7 @@ namespace LT.DigitalOffice.AdminService.Data.Provider
   [AutoInject(InjectType.Scoped)]
   public interface IDataProvider : IBaseDataProvider
   {
-    IQueryable<DbServiceConfiguration> ServicesConfigurations { get; }
+    IQueryable<DbServiceConfiguration> ServicesConfigurationsQueryable { get; }
+
   }
 }
