@@ -6,14 +6,14 @@ namespace LT.DigitalOffice.AdminService.Mappers
 {
   public class ConfigurationServicesInfoMapper : IConfigurationServicesInfoMapper
   {
-    public ConfigurationServicesInfo Map(DbServiceConfiguration dbconfig)
+    public ServiceConfigurationInfo Map(DbServiceConfiguration dbconfig)
     {
       if(dbconfig is null)
       {
         return null;
       }
 
-      return new ConfigurationServicesInfo
+      return new ServiceConfigurationInfo
       {
         Id = dbconfig.Id,
         ServiceName = dbconfig.ServiceName,

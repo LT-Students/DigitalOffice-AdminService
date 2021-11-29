@@ -10,6 +10,5 @@ namespace LT.DigitalOffice.AdminService.Data.Provider
   public interface IDataProvider : IBaseDataProvider
   {
     IQueryable<DbServiceConfiguration> ServicesConfigurationsQueryable { get; }
-
   }
 }

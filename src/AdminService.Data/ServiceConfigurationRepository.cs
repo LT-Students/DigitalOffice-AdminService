@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using LT.DigitalOffice.AdminService.Data.Interfaces;
 using LT.DigitalOffice.AdminService.Data.Provider;
 using LT.DigitalOffice.AdminService.Models.Db;
-using LT.DigitalOffice.AdminService.Models.Dto.Requests.Filtres;
+using LT.DigitalOffice.Kernel.Requests;
 using Microsoft.EntityFrameworkCore;
 
 namespace LT.DigitalOffice.AdminService.Data
@@ -17,7 +17,7 @@ namespace LT.DigitalOffice.AdminService.Data
     {
       _provider = provider;
     }
-    public async Task<(List<DbServiceConfiguration> dbconfig, int totalCount)> FindAsync(FindAdminFilter filter)
+    public async Task<(List<DbServiceConfiguration> dbconfig, int totalCount)> FindAsync(BaseFindFilter filter)
     {
       if (filter is null)
       {

@@ -7,6 +7,6 @@ namespace LT.DigitalOffice.AdminService.Mappers.Interfaces
   [AutoInject]
   public interface IConfigurationServicesInfoMapper
   {
-    ConfigurationServicesInfo Map(DbServiceConfiguration dbconfig);
+    ServiceConfigurationInfo Map(DbServiceConfiguration dbconfig);
   }
 }
