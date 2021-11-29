@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace LT.DigitalOffice.AdminService.Business.Commands
 {
-  public class FindAdminCommand : IFindAdminCommand
+  public class FindServiceConfigurationCommand : IFindServiceConfigurationCommand
   {
     private readonly IBaseFindFilterValidator _baseFindValidator;
     private readonly IServiceConfigurationRepository _configrepository;
@@ -50,12 +50,10 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
       FindResultResponse<ConfigurationServicesInfo> response = new();
       response.Body = new();
 
-      (List<DbServiceConfiguration> dbConfig, int totalCount) findServicesResponse =
+      (List<DbServiceConfiguration> dbConfig, int totalCount) =
         await _configrepository.FindAsync(filter);
 
-      List<DbServiceConfiguration> dbConfig = findServicesResponse.dbConfig;
-      response.TotalCount = findServicesResponse.totalCount;
-      
+      response.TotalCount = totalCount;      
       response.Body.AddRange(dbConfig.Select((dbConfig) => _configmapper.Map(dbConfig)));
 
       response.Status = response.Errors.Any() 

@@ -7,7 +7,7 @@ using LT.DigitalOffice.Kernel.Responses;
 namespace LT.DigitalOffice.AdminService.Business.Commands.Interfaces
 {
   [AutoInject] 
-  public interface IFindAdminCommand
+  public interface IFindServiceConfigurationCommand
   {
     Task<FindResultResponse<ConfigurationServicesInfo>> ExecuteAsync(FindAdminFilter filter);
   }
