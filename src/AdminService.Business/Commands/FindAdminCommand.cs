@@ -10,6 +10,8 @@ using LT.DigitalOffice.AdminService.Models.Dto.Models;
 using LT.DigitalOffice.AdminService.Models.Dto.Requests.Filtres;
 using LT.DigitalOffice.Kernel.Enums;
 using LT.DigitalOffice.Kernel.FluentValidationExtensions;
+using LT.DigitalOffice.Kernel.Helpers;
+using LT.DigitalOffice.Kernel.Helpers.Interfaces;
 using LT.DigitalOffice.Kernel.Responses;
 using LT.DigitalOffice.Kernel.Validators.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -22,42 +24,39 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
     private readonly IServiceConfigurationRepository _configrepository;
     private readonly IConfigurationServicesInfoMapper _configmapper;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IResponseCreater _responseCreator;
 
     public FindAdminCommand(
       IBaseFindFilterValidator baseFindValidator,
       IServiceConfigurationRepository configrepository,
       IConfigurationServicesInfoMapper configmapper, 
-      IHttpContextAccessor httpContextAccessor)
+      IHttpContextAccessor httpContextAccessor,
+      IResponseCreater responseCreator)
     {
       _baseFindValidator = baseFindValidator;
       _configrepository = configrepository;
       _configmapper = configmapper;
       _httpContextAccessor = httpContextAccessor;
+      _responseCreator = responseCreator;
     }
 
     public async Task<FindResultResponse<ConfigurationServicesInfo>> ExecuteAsync(FindAdminFilter filter)
     {
       if(!_baseFindValidator.ValidateCustom(filter, out List<string> errors))
       {
-        _httpContextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        return new()
-        {
-          Status = OperationResultStatusType.Failed,
-          Errors = errors
-        };
-      }
+        return _responseCreator.CreateFailureFindResponse<ConfigurationServicesInfo>(HttpStatusCode.BadRequest, errors);
+      };     
 
-      List<DbServiceConfiguration> dbConfig = null; 
       FindResultResponse<ConfigurationServicesInfo> response = new();
       response.Body = new();
 
       (List<DbServiceConfiguration> dbConfig, int totalCount) findServicesResponse =
         await _configrepository.FindAsync(filter);
 
-      dbConfig = findServicesResponse.dbConfig;
+      List<DbServiceConfiguration> dbConfig = findServicesResponse.dbConfig;
       response.TotalCount = findServicesResponse.totalCount;
       
-      response.Body.AddRange(dbConfig.Select(dbConfig => _configmapper.Map(dbConfig)));
+      response.Body.AddRange(dbConfig.Select((dbConfig) => _configmapper.Map(dbConfig)));
 
       response.Status = response.Errors.Any() 
         ? OperationResultStatusType.PartialSuccess 

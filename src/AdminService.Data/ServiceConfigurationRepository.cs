@@ -12,13 +12,14 @@ namespace LT.DigitalOffice.AdminService.Data
   public class ServiceConfigurationRepository : IServiceConfigurationRepository
   {
     private readonly IDataProvider _provider;
+
     public ServiceConfigurationRepository(IDataProvider provider)
     {
       _provider = provider;
     }
     public async Task<(List<DbServiceConfiguration> dbconfig, int totalCount)> FindAsync(FindAdminFilter filter)
     {
-      if(filter is null)
+      if (filter is null)
       {
         return (null, default);
       }
