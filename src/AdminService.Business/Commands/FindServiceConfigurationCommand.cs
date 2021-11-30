@@ -20,13 +20,13 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
     private readonly IBaseFindFilterValidator _baseFindFilterValidator;
     private readonly IServiceConfigurationRepository _serviceConfigurationRepository;
     private readonly IServiceConfigurationInfoMapper _serviceConfigurationInfoMapper;
-    private readonly IResponseCreater _responseCreator;
+    private readonly IResponseCreator _responseCreator;
 
     public FindServiceConfigurationCommand(
       IBaseFindFilterValidator baseFindFilterValidator,
       IServiceConfigurationRepository serviceConfigurationRepository,
       IServiceConfigurationInfoMapper serviceConfigurationInfoMapper,
-      IResponseCreater responseCreator)
+      IResponseCreator responseCreator)
     {
       _baseFindFilterValidator = baseFindFilterValidator;
       _serviceConfigurationRepository = serviceConfigurationRepository;
