@@ -3,12 +3,13 @@ using LT.DigitalOffice.AdminService.Models.Db;
 using LT.DigitalOffice.Kernel.Attributes;
 using LT.DigitalOffice.Kernel.Database;
 using LT.DigitalOffice.Kernel.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace LT.DigitalOffice.AdminService.Data.Provider
 {
   [AutoInject(InjectType.Scoped)]
   public interface IDataProvider : IBaseDataProvider
   {
-    IQueryable<DbServiceConfiguration> ServicesConfigurationsQueryable { get; }
+    DbSet<DbServiceConfiguration> ServicesConfigurations { get; set; }
   }
 }

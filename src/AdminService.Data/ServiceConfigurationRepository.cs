@@ -24,7 +24,7 @@ namespace LT.DigitalOffice.AdminService.Data
         return (null, default);
       }
 
-      IQueryable<DbServiceConfiguration> dbServicesConfigurations = _provider.ServicesConfigurationsQueryable;
+      IQueryable<DbServiceConfiguration> dbServicesConfigurations = _provider.ServicesConfigurations;
 
       return (
         await dbServicesConfigurations.Skip(filter.SkipCount).Take(filter.TakeCount).ToListAsync(),
