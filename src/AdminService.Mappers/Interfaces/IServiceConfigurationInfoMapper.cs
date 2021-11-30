@@ -5,8 +5,8 @@ using LT.DigitalOffice.Kernel.Attributes;
 namespace LT.DigitalOffice.AdminService.Mappers.Interfaces
 {
   [AutoInject]
-  public interface IConfigurationServicesInfoMapper
+  public interface IServiceConfigurationInfoMapper
   {
-    ServiceConfigurationInfo Map(DbServiceConfiguration dbconfig);
+    ServiceConfigurationInfo Map(DbServiceConfiguration dbServicesConfigurations);
   }
 }

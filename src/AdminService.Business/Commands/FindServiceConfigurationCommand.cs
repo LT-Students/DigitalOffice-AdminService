@@ -17,26 +17,26 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
 {
   public class FindServiceConfigurationCommand : IFindServiceConfigurationCommand
   {
-    private readonly IBaseFindFilterValidator _baseFindValidator;
-    private readonly IServiceConfigurationRepository _configrepository;
-    private readonly IConfigurationServicesInfoMapper _configmapper;
+    private readonly IBaseFindFilterValidator _baseFindFilterValidator;
+    private readonly IServiceConfigurationRepository _serviceConfigurationRepository;
+    private readonly IServiceConfigurationInfoMapper _serviceConfigurationInfoMapper;
     private readonly IResponseCreater _responseCreator;
 
     public FindServiceConfigurationCommand(
-      IBaseFindFilterValidator baseFindValidator,
-      IServiceConfigurationRepository configrepository,
-      IConfigurationServicesInfoMapper configmapper,
+      IBaseFindFilterValidator baseFindFilterValidator,
+      IServiceConfigurationRepository serviceConfigurationRepository,
+      IServiceConfigurationInfoMapper serviceConfigurationInfoMapper,
       IResponseCreater responseCreator)
     {
-      _baseFindValidator = baseFindValidator;
-      _configrepository = configrepository;
-      _configmapper = configmapper;
+      _baseFindFilterValidator = baseFindFilterValidator;
+      _serviceConfigurationRepository = serviceConfigurationRepository;
+      _serviceConfigurationInfoMapper = serviceConfigurationInfoMapper;
       _responseCreator = responseCreator;
     }
 
     public async Task<FindResultResponse<ServiceConfigurationInfo>> ExecuteAsync(BaseFindFilter filter)
     {
-      if (!_baseFindValidator.ValidateCustom(filter, out List<string> errors))
+      if (!_baseFindFilterValidator.ValidateCustom(filter, out List<string> errors))
       {
         return _responseCreator.CreateFailureFindResponse<ServiceConfigurationInfo>(HttpStatusCode.BadRequest, errors);
       };
@@ -44,11 +44,12 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
       FindResultResponse<ServiceConfigurationInfo> response = new();
       response.Body = new();
 
-      (List<DbServiceConfiguration> dbConfig, int totalCount) =
-        await _configrepository.FindAsync(filter);
+      (List<DbServiceConfiguration> dbServicesConfigurations, int totalCount) =
+        await _serviceConfigurationRepository.FindAsync(filter);
 
       response.TotalCount = totalCount;
-      response.Body.AddRange(dbConfig.Select((dbConfig) => _configmapper.Map(dbConfig)));
+      response.Body.AddRange(dbServicesConfigurations.Select((dbServicesConfigurations) => 
+        _serviceConfigurationInfoMapper.Map(dbServicesConfigurations)));
 
       return response;
     }

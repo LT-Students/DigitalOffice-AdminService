@@ -9,6 +9,6 @@ namespace LT.DigitalOffice.AdminService.Data.Interfaces
   [AutoInject]
   public interface IServiceConfigurationRepository
   {
-    Task<(List<DbServiceConfiguration> dbconfig, int totalCount)> FindAsync(BaseFindFilter filter);
+    Task<(List<DbServiceConfiguration> dbServicesConfigurations, int totalCount)> FindAsync(BaseFindFilter filter);
   }
 }

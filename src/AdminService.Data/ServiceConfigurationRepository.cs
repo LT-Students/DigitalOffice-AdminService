@@ -17,18 +17,18 @@ namespace LT.DigitalOffice.AdminService.Data
     {
       _provider = provider;
     }
-    public async Task<(List<DbServiceConfiguration> dbconfig, int totalCount)> FindAsync(BaseFindFilter filter)
+    public async Task<(List<DbServiceConfiguration> dbServicesConfigurations, int totalCount)> FindAsync(BaseFindFilter filter)
     {
       if (filter is null)
       {
         return (null, default);
       }
 
-      IQueryable<DbServiceConfiguration> dbconfig = _provider.ServicesConfigurationsQueryable;
+      IQueryable<DbServiceConfiguration> dbServicesConfigurations = _provider.ServicesConfigurationsQueryable;
 
       return (
-        await dbconfig.Skip(filter.SkipCount).Take(filter.TakeCount).ToListAsync(),
-        await dbconfig.CountAsync());
+        await dbServicesConfigurations.Skip(filter.SkipCount).Take(filter.TakeCount).ToListAsync(),
+        await dbServicesConfigurations.CountAsync());
     }
   }
 }
