@@ -8,7 +8,7 @@ namespace LT.DigitalOffice.AdminService.Mappers
   {
     public ServiceConfigurationInfo Map(DbServiceConfiguration dbServicesConfigurations)
     {
-      if(dbServicesConfigurations is null)
+      if (dbServicesConfigurations is null)
       {
         return null;
       }

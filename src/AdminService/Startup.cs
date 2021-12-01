@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using System.Text.RegularExpressions;
 using HealthChecks.UI.Client;
 using LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef;
 using LT.DigitalOffice.AdminService.Models.Dto.Configuration;
@@ -10,6 +9,7 @@ using LT.DigitalOffice.Kernel.BrokerSupport.Extensions;
 using LT.DigitalOffice.Kernel.BrokerSupport.Middlewares.Token;
 using LT.DigitalOffice.Kernel.Configurations;
 using LT.DigitalOffice.Kernel.Extensions;
+using LT.DigitalOffice.Kernel.Helpers;
 using LT.DigitalOffice.Kernel.Middlewares.ApiInformation;
 using LT.DigitalOffice.Kernel.RedisSupport.Configurations;
 using LT.DigitalOffice.Kernel.RedisSupport.Helpers;
@@ -101,11 +101,11 @@ namespace LT.DigitalOffice.AdminService
       {
         connStr = Configuration.GetConnectionString("SQLConnectionString");
 
-        Log.Information($"SQL connection string from appsettings.json was used. Value '{HidePassord(connStr)}'.");
+        Log.Information($"SQL connection string from appsettings.json was used. Value '{HidePasswordHelper.HidePassword(connStr)}'.");
       }
       else
       {
-        Log.Information($"SQL connection string from environment was used. Value '{HidePassord(connStr)}'.");
+        Log.Information($"SQL connection string from environment was used. Value '{HidePasswordHelper.HidePassword(connStr)}'.");
       }
 
       services.AddDbContext<AdminServiceDbContext>(options =>
@@ -113,7 +113,8 @@ namespace LT.DigitalOffice.AdminService
         options.UseSqlServer(connStr);
       });
 
-      services.AddHealthChecks()
+      services
+        .AddHealthChecks()
         .AddSqlServer(connStr)
         .AddRabbitMqCheck();
 
@@ -122,11 +123,11 @@ namespace LT.DigitalOffice.AdminService
       {
         redisConnStr = Configuration.GetConnectionString("Redis");
 
-        Log.Information($"Redis connection string from appsettings.json was used. Value '{HidePassord(redisConnStr)}'");
+        Log.Information($"Redis connection string from appsettings.json was used. Value '{HidePasswordHelper.HidePassword(redisConnStr)}'");
       }
       else
       {
-        Log.Information($"Redis connection string from environment was used. Value '{HidePassord(redisConnStr)}'");
+        Log.Information($"Redis connection string from environment was used. Value '{HidePasswordHelper.HidePassword(redisConnStr)}'");
       }
 
       services.AddSingleton<IConnectionMultiplexer>(
@@ -227,7 +228,6 @@ namespace LT.DigitalOffice.AdminService
       services.AddMassTransitHostedService();
     }
 
-
     private void UpdateDatabase(IApplicationBuilder app)
     {
       using var serviceScope = app.ApplicationServices
@@ -237,29 +237,6 @@ namespace LT.DigitalOffice.AdminService
       using var context = serviceScope.ServiceProvider.GetService<AdminServiceDbContext>();
 
       context.Database.Migrate();
-    }
-
-    private string HidePassord(string line)
-    {
-      string password = "Password";
-
-      int index = line.IndexOf(password, 0, StringComparison.OrdinalIgnoreCase);
-
-      if (index != -1)
-      {
-        string[] words = Regex.Split(line, @"[=,; ]");
-
-        for (int i = 0; i < words.Length; i++)
-        {
-          if (string.Equals(password, words[i], StringComparison.OrdinalIgnoreCase))
-          {
-            line = line.Replace(words[i + 1], "****");
-            break;
-          }
-        }
-      }
-
-      return line;
     }
 
     #endregion
