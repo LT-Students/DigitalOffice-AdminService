@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LT.DigitalOffice.AdminService.Data.Interfaces;
@@ -17,6 +18,7 @@ namespace LT.DigitalOffice.AdminService.Data
     {
       _provider = provider;
     }
+
     public async Task<(List<DbServiceConfiguration> dbServicesConfigurations, int totalCount)> FindAsync(BaseFindFilter filter)
     {
       if (filter is null)
@@ -29,6 +31,27 @@ namespace LT.DigitalOffice.AdminService.Data
       return (
         await dbServicesConfigurations.Skip(filter.SkipCount).Take(filter.TakeCount).ToListAsync(),
         await dbServicesConfigurations.CountAsync());
+    }
+
+    public async Task InstallAppAsync(DbServiceConfiguration config)
+    {
+      if (config == null)
+      {
+        return;
+      }
+
+      if (await _provider.ServicesConfigurations.AnyAsync())
+      {
+        return;
+      }
+
+      _provider.ServicesConfigurations.Update(config);
+      await _provider.SaveAsync();
+    }
+
+    public async Task<DbServiceConfiguration> GetAsync(Guid id)
+    {
+      return await _provider.ServicesConfigurations.FindAsync(id);
     }
   }
 }
