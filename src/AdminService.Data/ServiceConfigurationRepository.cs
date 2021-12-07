@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LT.DigitalOffice.AdminService.Data.Interfaces;
 using LT.DigitalOffice.AdminService.Data.Provider;
 using LT.DigitalOffice.AdminService.Models.Db;
+using LT.DigitalOffice.Kernel.Extensions;
 using LT.DigitalOffice.Kernel.Requests;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace LT.DigitalOffice.AdminService.Data
@@ -12,10 +15,14 @@ namespace LT.DigitalOffice.AdminService.Data
   public class ServiceConfigurationRepository : IServiceConfigurationRepository
   {
     private readonly IDataProvider _provider;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public ServiceConfigurationRepository(IDataProvider provider)
+    public ServiceConfigurationRepository(
+      IDataProvider provider,
+      IHttpContextAccessor httpContextAccessor)
     {
       _provider = provider;
+      _httpContextAccessor = httpContextAccessor;
     }
     public async Task<(List<DbServiceConfiguration> dbServicesConfigurations, int totalCount)> FindAsync(BaseFindFilter filter)
     {
@@ -29,6 +36,32 @@ namespace LT.DigitalOffice.AdminService.Data
       return (
         await dbServicesConfigurations.Skip(filter.SkipCount).Take(filter.TakeCount).ToListAsync(),
         await dbServicesConfigurations.CountAsync());
+    }
+
+    public async Task<List<Guid>> EditAsync(List<Guid> servicesId)
+    {
+      List<Guid> changedServicesId = new();
+
+      foreach (Guid serviceId in servicesId)
+      {
+        DbServiceConfiguration dbServiceConfiguration = await _provider.ServicesConfigurations
+          .FirstOrDefaultAsync(x => x.Id == serviceId);
+
+        if (dbServiceConfiguration is null)
+        {
+          continue;
+        }
+
+        dbServiceConfiguration.IsActive = !dbServiceConfiguration.IsActive;
+        dbServiceConfiguration.ModifiedBy = _httpContextAccessor.HttpContext.GetUserId();
+        dbServiceConfiguration.ModifiedAtUtc = DateTime.UtcNow;
+
+        changedServicesId.Add(serviceId);
+      }
+
+      await _provider.SaveAsync();
+
+      return changedServicesId;
     }
   }
 }
