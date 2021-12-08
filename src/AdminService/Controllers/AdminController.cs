@@ -24,9 +24,9 @@ namespace LT.DigitalOffice.AdminService.Controllers
     [HttpPut("edit")]
     public async Task<OperationResultResponse<bool>> EditAsync(
       [FromServices] IEditServiceConfigurationCommand command,
-      [FromBody] List<Guid> servicesId)
+      [FromBody] List<Guid> servicesIds)
     {
-      return await command.ExecuteAsync(servicesId);
+      return await command.ExecuteAsync(servicesIds);
     }
   }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using LT.DigitalOffice.AdminService.Business.Commands.Interfaces;
@@ -27,27 +28,27 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
       _responseCreator = responseCreator;
     }
 
-    public async Task<OperationResultResponse<bool>> ExecuteAsync(List<Guid> servicesId)
+    public async Task<OperationResultResponse<bool>> ExecuteAsync(List<Guid> servicesIds)
     {
       if (!await _accessValidator.IsAdminAsync())
       {
         return _responseCreator.CreateFailureResponse<bool>(HttpStatusCode.Forbidden);
       }
 
-      if (servicesId.Count == 0 || servicesId is null)
+      if (!servicesIds.Any() || servicesIds is null)
       {
         return _responseCreator.CreateFailureResponse<bool>(HttpStatusCode.BadRequest);
       }
 
-      List<Guid> changedServicesId = await _repository.EditAsync(servicesId);
+      List<Guid> changedServicesIds = await _repository.EditAsync(servicesIds);
 
-      bool difference = changedServicesId.Count == servicesId.Count;
+      bool difference = changedServicesIds.Count == servicesIds.Count;
 
       return new OperationResultResponse<bool>()
       {
         Status = difference ? OperationResultStatusType.FullSuccess : OperationResultStatusType.PartialSuccess,
         Body = true,
-        Errors = difference ? null : new() { "Request contains incorrect Ids." }
+        Errors = difference ? null : new() { "Request contains incorrect services Ids." }
       };
     }
   }

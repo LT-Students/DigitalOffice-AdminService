@@ -11,6 +11,6 @@ namespace LT.DigitalOffice.AdminService.Data.Interfaces
   public interface IServiceConfigurationRepository
   {
     Task<(List<DbServiceConfiguration> dbServicesConfigurations, int totalCount)> FindAsync(BaseFindFilter filter);
-    Task<List<Guid>> EditAsync(List<Guid> servicesId);
+    Task<List<Guid>> EditAsync(List<Guid> servicesIds);
   }
 }

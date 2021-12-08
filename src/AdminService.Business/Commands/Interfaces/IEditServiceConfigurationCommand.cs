@@ -9,6 +9,6 @@ namespace LT.DigitalOffice.AdminService.Business.Commands.Interfaces
   [AutoInject]
   public interface IEditServiceConfigurationCommand
   {
-    Task<OperationResultResponse<bool>> ExecuteAsync(List<Guid> servicesId);
+    Task<OperationResultResponse<bool>> ExecuteAsync(List<Guid> servicesIds);
   }
 }
