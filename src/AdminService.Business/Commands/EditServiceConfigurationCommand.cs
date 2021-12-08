@@ -34,7 +34,7 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
         return _responseCreator.CreateFailureResponse<bool>(HttpStatusCode.Forbidden);
       }
 
-      if (servicesId is null)
+      if (servicesId.Count == 0 || servicesId is null)
       {
         return _responseCreator.CreateFailureResponse<bool>(HttpStatusCode.BadRequest);
       }
