@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using LT.DigitalOffice.AdminService.Business.Commands.Interfaces;
 using LT.DigitalOffice.AdminService.Data.Interfaces;
-using LT.DigitalOffice.AdminService.Mappers.Interfaces;
-using LT.DigitalOffice.AdminService.Models.Db;
+using LT.DigitalOffice.AdminService.Data.Provider;
 using LT.DigitalOffice.AdminService.Models.Dto.Models;
 using LT.DigitalOffice.AdminService.Models.Dto.Requests;
 using LT.DigitalOffice.AdminService.Validation.Interfaces;
 using LT.DigitalOffice.Kernel.BrokerSupport.Broker;
 using LT.DigitalOffice.Kernel.Enums;
 using LT.DigitalOffice.Kernel.FluentValidationExtensions;
+using LT.DigitalOffice.Kernel.Helpers.Interfaces;
 using LT.DigitalOffice.Kernel.Responses;
 using LT.DigitalOffice.Models.Broker.Requests.Email;
 using LT.DigitalOffice.Models.Broker.Requests.User;
@@ -23,30 +24,30 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
 {
   public class InstallAppCommand
   {
-    private readonly IAppInstallationMapper _mapper;
     private readonly ILogger<IInstallAppCommand> _logger;
     private readonly IInstallAppRequestValidator _validator;
     private readonly IServiceConfigurationRepository _repository;
     private readonly IRequestClient<ICreateAdminRequest> _rcCreateAdmin;
     private readonly IRequestClient<ICreateSmtpCredentialsRequest> _rcCreateSmtp;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IResponseCreator _responseCreator;
 
     public InstallAppCommand(
-      IAppInstallationMapper mapper,
       ILogger<IInstallAppCommand> logger,
       IInstallAppRequestValidator validator,
       IServiceConfigurationRepository repository,
       IRequestClient<ICreateAdminRequest> rcCreateAdmin,
       IRequestClient<ICreateSmtpCredentialsRequest> rcCreateSmtp,
-      IHttpContextAccessor httpContextAccessor)
+      IHttpContextAccessor httpContextAccessor,
+      IResponseCreator responseCreator)
     {
-      _mapper = mapper;
       _logger = logger;
       _validator = validator;
       _repository = repository;
       _rcCreateAdmin = rcCreateAdmin;
       _rcCreateSmtp = rcCreateSmtp;
       _httpContextAccessor = httpContextAccessor;
+      _responseCreator = responseCreator;
     }
 
     private async Task<bool> CreateSmtp(SmtpInfo smtpInfo, List<string> errors)
@@ -99,68 +100,55 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
           return true;
         }
 
-        errors.Add(message);
-
         _logger.LogWarning(message, string.Join("\n", response.Message.Errors));
       }
       catch (Exception exc)
       {
         _logger.LogError(exc, message);
-
-        errors.Add(message);
       }
 
+      errors.Add(message);
       return false;
     }
 
-    public async Task<OperationResultResponse<Guid>> ExecuteAsync(InstallAppRequest request)
+    public async Task<OperationResultResponse<bool>> ExecuteAsync(InstallAppRequest request)
     {
-      foreach (Guid id in request.ServicesToDisable)
-      {
-        if (await _repository.GetAsync(id) == null)
-        {
-          _httpContextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-          return new OperationResultResponse<Guid>
-          {
-            Status = OperationResultStatusType.Failed,
-            Errors = new() { "Some services were not found." }
-          };
-        }
-      }
-
       if (!_validator.ValidateCustom(request, out List<string> errors))
       {
-        _httpContextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-        return new OperationResultResponse<Guid>
-        {
-          Status = OperationResultStatusType.Failed,
-          Errors = errors
-        };
+        return _responseCreator.CreateFailureResponse<bool>(HttpStatusCode.BadRequest, errors);
       }
 
       if (!(await CreateSmtp(request.SmtpInfo, errors) &&
         await CreateAdmin(request.AdminInfo, errors)))
       {
-        return new OperationResultResponse<Guid>
-        {
-          Status = OperationResultStatusType.Failed,
-          Errors = errors
-        };
+        return _responseCreator.CreateFailureResponse<bool>(HttpStatusCode.BadRequest, errors);
       }
 
-      DbServiceConfiguration config = _mapper.Map(request);
+      List<Guid> confirmedServicesIds = await _repository.AreExistingIdsAsync(request.ServicesToDisable);
 
-      await _repository.InstallAppAsync(config);
-
-      _httpContextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.Created;
-
-      return new OperationResultResponse<Guid>
+      if (confirmedServicesIds is null || !confirmedServicesIds.Any())
       {
-        Status = OperationResultStatusType.FullSuccess,
-        Body = config.Id
-      };
+        return _responseCreator.CreateFailureResponse<bool>(HttpStatusCode.BadRequest);
+      }
+      else
+      {
+        bool response = await _repository.InstallAppAsync(confirmedServicesIds);
+        
+        if (response)
+        {
+          _httpContextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.Created;
+
+          return new OperationResultResponse<bool>
+          {
+            Status = OperationResultStatusType.FullSuccess,
+            Body = true
+          };
+        }
+        else
+        {
+          return _responseCreator.CreateFailureResponse<bool>(HttpStatusCode.BadRequest);
+        }
+      }
     }
   }
 }

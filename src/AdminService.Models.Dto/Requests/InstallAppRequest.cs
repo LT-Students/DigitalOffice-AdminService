@@ -9,5 +9,6 @@ namespace LT.DigitalOffice.AdminService.Models.Dto.Requests
     public SmtpInfo SmtpInfo { get; set; }
     public AdminInfo AdminInfo { get; set; }
     public List<Guid> ServicesToDisable { get; set; }
-  }
+    public string WorkDaysApiUrl { get; set; }
+}
 }

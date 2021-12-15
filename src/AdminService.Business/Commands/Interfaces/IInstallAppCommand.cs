@@ -9,6 +9,6 @@ namespace LT.DigitalOffice.AdminService.Business.Commands.Interfaces
   [AutoInject]
   public interface IInstallAppCommand
   {
-    Task<OperationResultResponse<Guid>> ExecuteAsync(InstallAppRequest request);
+    Task<OperationResultResponse<bool>> ExecuteAsync(InstallAppRequest request);
   }
 }

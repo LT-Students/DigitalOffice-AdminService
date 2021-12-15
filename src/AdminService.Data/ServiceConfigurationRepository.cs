@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using LT.DigitalOffice.AdminService.Data.Interfaces;
 using LT.DigitalOffice.AdminService.Data.Provider;
 using LT.DigitalOffice.AdminService.Models.Db;
+using LT.DigitalOffice.Kernel.Extensions;
 using LT.DigitalOffice.Kernel.Requests;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace LT.DigitalOffice.AdminService.Data
@@ -13,10 +15,14 @@ namespace LT.DigitalOffice.AdminService.Data
   public class ServiceConfigurationRepository : IServiceConfigurationRepository
   {
     private readonly IDataProvider _provider;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public ServiceConfigurationRepository(IDataProvider provider)
+    public ServiceConfigurationRepository(
+      IDataProvider provider,
+      IHttpContextAccessor httpContextAccessor)
     {
       _provider = provider;
+      _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<(List<DbServiceConfiguration> dbServicesConfigurations, int totalCount)> FindAsync(BaseFindFilter filter)
@@ -33,25 +39,40 @@ namespace LT.DigitalOffice.AdminService.Data
         await dbServicesConfigurations.CountAsync());
     }
 
-    public async Task InstallAppAsync(DbServiceConfiguration config)
+    public async Task<bool> InstallAppAsync(List<Guid> confirmedServicesIds)
     {
-      if (config == null)
+      foreach (Guid serviceId in confirmedServicesIds)
       {
-        return;
+        DbServiceConfiguration configuration = await _provider.ServicesConfigurations
+          .FirstOrDefaultAsync(x => x.Id == serviceId);
+
+        configuration.IsActive = false;
+        configuration.ModifiedAtUtc = DateTime.UtcNow;
+        configuration.ModifiedBy = _httpContextAccessor.HttpContext.GetUserId();
+
+        _provider.ServicesConfigurations.Update(configuration);
       }
 
-      if (await _provider.ServicesConfigurations.AnyAsync())
-      {
-        return;
-      }
-
-      _provider.ServicesConfigurations.Update(config);
       await _provider.SaveAsync();
+      return true;
     }
 
-    public async Task<DbServiceConfiguration> GetAsync(Guid id)
+    public async Task<List<Guid>> AreExistingIdsAsync(List<Guid> servicesIds)
     {
-      return await _provider.ServicesConfigurations.FindAsync(id);
+      if (servicesIds is null)
+      {
+        return null;
+      }
+
+      if (!await _provider.ServicesConfigurations.AnyAsync())
+      {
+        return null;
+      }
+
+      return await _provider.ServicesConfigurations
+        .Where(s => servicesIds.Contains(s.Id))
+        .Select(s => s.Id)
+        .ToListAsync();
     }
   }
 }
