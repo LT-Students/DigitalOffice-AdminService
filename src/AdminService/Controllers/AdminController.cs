@@ -22,7 +22,7 @@ namespace LT.DigitalOffice.AdminService.Controllers
     }
 
     [HttpPost("install")]
-    public async Task<OperationResultResponse<Guid>> InstallAppAsync(
+    public async Task<OperationResultResponse<bool>> InstallAppAsync(
       [FromServices] IInstallAppCommand command,
       [FromBody] InstallAppRequest request)
     {
