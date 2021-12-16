@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using LT.DigitalOffice.AdminService.Business.Commands.Interfaces;
 using LT.DigitalOffice.AdminService.Models.Dto.Models;
 using LT.DigitalOffice.Kernel.Requests;
@@ -17,6 +19,14 @@ namespace LT.DigitalOffice.AdminService.Controllers
       [FromQuery] BaseFindFilter filter)
     {
       return await command.ExecuteAsync(filter);
+    }
+
+    [HttpPut("edit")]
+    public async Task<OperationResultResponse<bool>> EditAsync(
+      [FromServices] IEditServiceConfigurationCommand command,
+      [FromBody] List<Guid> servicesIds)
+    {
+      return await command.ExecuteAsync(servicesIds);
     }
   }
 }
