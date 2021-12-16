@@ -103,10 +103,6 @@ namespace LT.DigitalOffice.AdminService.Validation
       RuleFor(request => request.WorkDaysApiUrl)
         .NotEmpty()
         .WithMessage("Work days api url can't be empty");
-
-      RuleFor(request => request.ServicesToDisable)
-        .Cascade(CascadeMode.Stop)
-        .MustAsync
     }
   }
 }

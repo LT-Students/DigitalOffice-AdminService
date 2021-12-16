@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using HealthChecks.UI.Client;
-using LT.DigitalOffice.AdminService.Business.Commands;
-using LT.DigitalOffice.AdminService.Business.Commands.Interfaces;
 using LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef;
 using LT.DigitalOffice.AdminService.Models.Dto.Configuration;
 using LT.DigitalOffice.Kernel.BrokerSupport.Configurations;
@@ -17,7 +15,6 @@ using LT.DigitalOffice.Kernel.RedisSupport.Configurations;
 using LT.DigitalOffice.Kernel.RedisSupport.Helpers;
 using LT.DigitalOffice.Kernel.RedisSupport.Helpers.Interfaces;
 using MassTransit;
-using MassTransit.RabbitMqTransport;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;

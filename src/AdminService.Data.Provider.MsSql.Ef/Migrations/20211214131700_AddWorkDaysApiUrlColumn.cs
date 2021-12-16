@@ -11,9 +11,10 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef.Migrations
     protected override void Up(MigrationBuilder builder)
     {
       builder.AddColumn<string>(
-      name: "WorkDaysApiUrl",
-      table: DbServiceConfiguration.TableName,
-      nullable: false);
+        name: "WorkDaysApiUrl",
+        table: DbServiceConfiguration.TableName,
+        nullable: false,
+        defaultValue: 0);
     }
 
     protected override void Down(MigrationBuilder builder)
