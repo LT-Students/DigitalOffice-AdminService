@@ -96,12 +96,12 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
       {
         Response<IOperationResult<bool>> response = await _rcCreateAdmin.GetResponse<IOperationResult<bool>>(
           ICreateAdminRequest.CreateObj(
-            adminInfo.FirstName,
-            adminInfo.MiddleName,
-            adminInfo.LastName,
-            adminInfo.Email,
-            adminInfo.Login,
-            adminInfo.Password));
+            firstName: adminInfo.FirstName,
+            middleName: adminInfo.MiddleName,
+            lastName: adminInfo.LastName,
+            email: adminInfo.Email,
+            login: adminInfo.Login,
+            password: adminInfo.Password));
 
         if (response.Message.IsSuccess)
         {
