@@ -15,5 +15,7 @@ namespace LT.DigitalOffice.AdminService.Data.Interfaces
     Task<List<Guid>> AreExistingIdsAsync(List<Guid> servicesId);
 
     Task<(List<DbServiceConfiguration> dbServicesConfigurations, int totalCount)> FindAsync(BaseFindFilter filter);
+
+    Task<List<Guid>> EditAsync(List<Guid> servicesIds);
   }
 }

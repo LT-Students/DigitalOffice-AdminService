@@ -39,6 +39,32 @@ namespace LT.DigitalOffice.AdminService.Data
         await dbServicesConfigurations.CountAsync());
     }
 
+    public async Task<List<Guid>> EditAsync(List<Guid> servicesIds)
+    {
+      List<Guid> changedServicesIds = new();
+
+      foreach (Guid serviceId in servicesIds)
+      {
+        DbServiceConfiguration dbServiceConfiguration = await _provider.ServicesConfigurations
+          .FirstOrDefaultAsync(x => x.Id == serviceId);
+
+        if (dbServiceConfiguration is null)
+        {
+          continue;
+        }
+
+        dbServiceConfiguration.IsActive = !dbServiceConfiguration.IsActive;
+        dbServiceConfiguration.ModifiedBy = _httpContextAccessor.HttpContext.GetUserId();
+        dbServiceConfiguration.ModifiedAtUtc = DateTime.UtcNow;
+
+        changedServicesIds.Add(serviceId);
+      }
+
+      await _provider.SaveAsync();
+
+      return changedServicesIds;
+    }
+
     public async Task<bool> InstallAppAsync(List<Guid> confirmedServicesIds)
     {
       foreach (Guid serviceId in confirmedServicesIds)
