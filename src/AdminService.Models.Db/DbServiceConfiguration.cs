@@ -11,6 +11,5 @@ namespace LT.DigitalOffice.AdminService.Models.Db
     public bool IsActive { get; set; }
     public Guid? ModifiedBy { get; set; }
     public DateTime? ModifiedAtUtc { get; set; }
-    public string WorkDaysApiUrl { get; set; }
   }
 }

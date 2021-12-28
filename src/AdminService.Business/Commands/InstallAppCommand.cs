@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using LT.DigitalOffice.AdminService.Business.Commands.Interfaces;
 using LT.DigitalOffice.AdminService.Data.Interfaces;
-using LT.DigitalOffice.AdminService.Data.Provider;
 using LT.DigitalOffice.AdminService.Models.Dto.Models;
 using LT.DigitalOffice.AdminService.Models.Dto.Requests;
 using LT.DigitalOffice.AdminService.Validation.Interfaces;
@@ -22,7 +20,7 @@ using Microsoft.Extensions.Logging;
 
 namespace LT.DigitalOffice.AdminService.Business.Commands
 {
-  public class InstallAppCommand
+  public class InstallAppCommand : IInstallAppCommand
   {
     private readonly ILogger<IInstallAppCommand> _logger;
     private readonly IInstallAppRequestValidator _validator;
@@ -52,7 +50,10 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
 
     private async Task<bool> CreateSmtp(SmtpInfo smtpInfo, List<string> errors)
     {
-      string message = "Can not create smtp credentials.";
+      if (smtpInfo is null)
+      {
+        return false;
+      }
 
       try
       {
@@ -64,50 +65,61 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
             email: smtpInfo.Email,
             password: smtpInfo.Password));
 
-        if (response.Message.IsSuccess && response.Message.Body)
+        if (response.Message.IsSuccess)
         {
-          return true;
+          return response.Message.Body;
         }
 
-        _logger.LogWarning(message, string.Join("\n", response.Message.Errors));
+        _logger.LogWarning(
+          "Error while creating smtp credentials.\nErrors: {Errors}",
+          string.Join("\n", response.Message.Errors));
       }
       catch (Exception exc)
       {
-        _logger.LogError(exc, message);
+        _logger.LogError(
+          exc,
+          "Can not create smtp credentials.");
       }
-      errors.Add(message);
+      errors.Add("Can not create smtp credentials.");
 
       return false;
     }
 
-    private async Task<bool> CreateAdmin(AdminInfo info, List<string> errors)
+    private async Task<bool> CreateAdmin(AdminInfo adminInfo, List<string> errors)
     {
-      string message = "Can not create admin.";
+      if (adminInfo is null)
+      {
+        return false;
+      }
 
       try
       {
         Response<IOperationResult<bool>> response = await _rcCreateAdmin.GetResponse<IOperationResult<bool>>(
           ICreateAdminRequest.CreateObj(
-            info.FirstName, 
-            info.MiddleName, 
-            info.LastName, 
-            info.Email, 
-            info.Login, 
-            info.Password));
+            adminInfo.FirstName,
+            adminInfo.MiddleName,
+            adminInfo.LastName,
+            adminInfo.Email,
+            adminInfo.Login,
+            adminInfo.Password));
 
-        if (response.Message.IsSuccess && response.Message.Body)
+        if (response.Message.IsSuccess)
         {
-          return true;
+          return response.Message.Body;
         }
 
-        _logger.LogWarning(message, string.Join("\n", response.Message.Errors));
+        _logger.LogWarning(
+          "Error while creating admin.\nErrors: {Errors}",
+          string.Join("\n", response.Message.Errors));
       }
       catch (Exception exc)
       {
-        _logger.LogError(exc, message);
+        _logger.LogError(
+          exc,
+          "Can not create admin.");
       }
 
-      errors.Add(message);
+      errors.Add("Can not create admin.");
       return false;
     }
 
@@ -124,31 +136,23 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
         return _responseCreator.CreateFailureResponse<bool>(HttpStatusCode.BadRequest, errors);
       }
 
-      List<Guid> confirmedServicesIds = await _repository.AreExistingIdsAsync(request.ServicesToDisable);
+      OperationResultResponse<bool> response = new();
 
-      if (confirmedServicesIds is null || !confirmedServicesIds.Any())
+      int countDisabledServices = await _repository.InstallAppAsync(request.ServicesToDisable);
+
+      _httpContextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.Created;
+
+      if (request.ServicesToDisable.Count != countDisabledServices)
       {
-        return _responseCreator.CreateFailureResponse<bool>(HttpStatusCode.BadRequest);
+        response.Status = OperationResultStatusType.PartialSuccess;
+        response.Errors = new List<string>() { "not all services have been disabled." };
       }
       else
       {
-        bool response = await _repository.InstallAppAsync(confirmedServicesIds);
-        
-        if (response)
-        {
-          _httpContextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.Created;
-
-          return new OperationResultResponse<bool>
-          {
-            Status = OperationResultStatusType.FullSuccess,
-            Body = true
-          };
-        }
-        else
-        {
-          return _responseCreator.CreateFailureResponse<bool>(HttpStatusCode.BadRequest);
-        }
+        response.Body = true;
       }
+
+      return response;
     }
   }
 }

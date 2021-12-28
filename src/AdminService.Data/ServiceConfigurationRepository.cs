@@ -25,6 +25,28 @@ namespace LT.DigitalOffice.AdminService.Data
       _httpContextAccessor = httpContextAccessor;
     }
 
+    public async Task<int> InstallAppAsync(List<Guid> servicesIdsToDisable)
+    {
+      int countDisabledServices = default;
+
+      IQueryable<DbServiceConfiguration> configurations = _provider.ServicesConfigurations.AsQueryable();
+
+      foreach (var service in configurations)
+      {
+        service.ModifiedAtUtc = DateTime.UtcNow;
+
+        if (servicesIdsToDisable.Contains(service.Id))
+        {
+          service.IsActive = false;
+          countDisabledServices++;
+        }
+      }
+
+      await _provider.SaveAsync();
+
+      return countDisabledServices;
+    }
+
     public async Task<(List<DbServiceConfiguration> dbServicesConfigurations, int totalCount)> FindAsync(BaseFindFilter filter)
     {
       if (filter is null)
@@ -63,42 +85,6 @@ namespace LT.DigitalOffice.AdminService.Data
       await _provider.SaveAsync();
 
       return changedServicesIds;
-    }
-
-    public async Task<bool> InstallAppAsync(List<Guid> confirmedServicesIds)
-    {
-      foreach (Guid serviceId in confirmedServicesIds)
-      {
-        DbServiceConfiguration configuration = await _provider.ServicesConfigurations
-          .FirstOrDefaultAsync(x => x.Id == serviceId);
-
-        configuration.IsActive = false;
-        configuration.ModifiedAtUtc = DateTime.UtcNow;
-        configuration.ModifiedBy = _httpContextAccessor.HttpContext.GetUserId();
-
-        _provider.ServicesConfigurations.Update(configuration);
-      }
-
-      await _provider.SaveAsync();
-      return true;
-    }
-
-    public async Task<List<Guid>> AreExistingIdsAsync(List<Guid> servicesIds)
-    {
-      if (servicesIds is null)
-      {
-        return null;
-      }
-
-      if (!await _provider.ServicesConfigurations.AnyAsync())
-      {
-        return null;
-      }
-
-      return await _provider.ServicesConfigurations
-        .Where(s => servicesIds.Contains(s.Id))
-        .Select(s => s.Id)
-        .ToListAsync();
     }
   }
 }
