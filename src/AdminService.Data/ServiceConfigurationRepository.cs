@@ -86,5 +86,11 @@ namespace LT.DigitalOffice.AdminService.Data
 
       return changedServicesIds;
     }
+
+    public async Task<bool> IsAppInstalled()
+    {
+      return (await _provider.ServicesConfigurations
+        .FirstAsync()).ModifiedAtUtc != default;
+    }
   }
 }

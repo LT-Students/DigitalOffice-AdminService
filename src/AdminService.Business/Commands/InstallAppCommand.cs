@@ -125,6 +125,13 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
 
     public async Task<OperationResultResponse<bool>> ExecuteAsync(InstallAppRequest request)
     {
+      if (await _repository.IsAppInstalled())
+      {
+        return _responseCreator.CreateFailureResponse<bool>(
+          HttpStatusCode.BadRequest,
+          new List<string>() { "The app is already installed." });
+      }
+
       if (!_validator.ValidateCustom(request, out List<string> errors))
       {
         return _responseCreator.CreateFailureResponse<bool>(HttpStatusCode.BadRequest, errors);
