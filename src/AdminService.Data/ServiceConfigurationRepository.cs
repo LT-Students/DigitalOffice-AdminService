@@ -24,6 +24,29 @@ namespace LT.DigitalOffice.AdminService.Data
       _provider = provider;
       _httpContextAccessor = httpContextAccessor;
     }
+
+    public async Task<int> InstallAppAsync(List<Guid> servicesIdsToDisable)
+    {
+      int countDisabledServices = default;
+
+      IQueryable<DbServiceConfiguration> configurations = _provider.ServicesConfigurations.AsQueryable();
+
+      foreach (var service in configurations)
+      {
+        service.ModifiedAtUtc = DateTime.UtcNow;
+
+        if (servicesIdsToDisable.Contains(service.Id))
+        {
+          service.IsActive = false;
+          countDisabledServices++;
+        }
+      }
+
+      await _provider.SaveAsync();
+
+      return countDisabledServices;
+    }
+
     public async Task<(List<DbServiceConfiguration> dbServicesConfigurations, int totalCount)> FindAsync(BaseFindFilter filter)
     {
       if (filter is null)
@@ -62,6 +85,12 @@ namespace LT.DigitalOffice.AdminService.Data
       await _provider.SaveAsync();
 
       return changedServicesIds;
+    }
+
+    public async Task<bool> DoesAppInstalledAsync()
+    {
+      return (await _provider.ServicesConfigurations
+        .FirstAsync()).ModifiedAtUtc != default;
     }
   }
 }

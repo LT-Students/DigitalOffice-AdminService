@@ -3,12 +3,12 @@
   <Import Project="$(ProjectDir)..\..\Common.Configurations.targets" />
 
   <ItemGroup>
-    <Folder Include="Consumers\" />
+    <ProjectReference Include="..\AdminService.Data\AdminService.Data.csproj" />
+    <ProjectReference Include="..\AdminService.Mappers\AdminService.Mappers.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdminService.Data\AdminService.Data.csproj" />
-    <ProjectReference Include="..\AdminService.Mappers\AdminService.Mappers.csproj" />
+    <Folder Include="Consumers\" />
   </ItemGroup>
 
 </Project>

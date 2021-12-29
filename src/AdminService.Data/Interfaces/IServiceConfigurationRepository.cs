@@ -10,8 +10,12 @@ namespace LT.DigitalOffice.AdminService.Data.Interfaces
   [AutoInject]
   public interface IServiceConfigurationRepository
   {
+    Task<int> InstallAppAsync(List<Guid> servicesIdsToDisable);
+
     Task<(List<DbServiceConfiguration> dbServicesConfigurations, int totalCount)> FindAsync(BaseFindFilter filter);
 
     Task<List<Guid>> EditAsync(List<Guid> servicesIds);
+
+    Task<bool> DoesAppInstalledAsync();
   }
 }
