@@ -87,7 +87,7 @@ namespace LT.DigitalOffice.AdminService.Data
       return changedServicesIds;
     }
 
-    public async Task<bool> IsAppInstalled()
+    public async Task<bool> DoesAppInstalledAsync()
     {
       return (await _provider.ServicesConfigurations
         .FirstAsync()).ModifiedAtUtc != default;

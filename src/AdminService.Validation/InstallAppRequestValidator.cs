@@ -29,9 +29,9 @@ namespace LT.DigitalOffice.AdminService.Validation
           RuleFor(request => request.AdminInfo.LastName)
             .Cascade(CascadeMode.Stop)
             .NotEmpty().WithMessage("Last name cannot be empty.")
-            .MaximumLength(45).WithMessage("First name is too long.")
+            .MaximumLength(45).WithMessage("Last name is too long.")
             .Must(x => NameRegex.IsMatch(x.Trim()))
-            .WithMessage("First name contains invalid characters.");
+            .WithMessage("Last name contains invalid characters.");
 
           When(
             request => !string.IsNullOrEmpty(request.AdminInfo.MiddleName),
@@ -55,7 +55,7 @@ namespace LT.DigitalOffice.AdminService.Validation
             .NotEmpty().WithMessage("Login can't be empty.")
             .Must(x => char.IsLetter(x[0])).WithMessage("Login must start with a letter.")
             .MinimumLength(3).WithMessage("Login is too short.")
-            .MaximumLength(15).WithMessage("Login is too long")
+            .MaximumLength(15).WithMessage("Login is too long.")
             .Must(x => x.All(char.IsLetterOrDigit))
             .WithMessage("Login must contain only letters or digits.");
 

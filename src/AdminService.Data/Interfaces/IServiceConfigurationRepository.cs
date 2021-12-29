@@ -16,6 +16,6 @@ namespace LT.DigitalOffice.AdminService.Data.Interfaces
 
     Task<List<Guid>> EditAsync(List<Guid> servicesIds);
 
-    Task<bool> IsAppInstalled();
+    Task<bool> DoesAppInstalledAsync();
   }
 }
