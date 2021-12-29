@@ -37,6 +37,5 @@ namespace LT.DigitalOffice.AdminService.Controllers
     {
       return await command.ExecuteAsync(request);
     }
-
   }
 }
