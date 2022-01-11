@@ -15,8 +15,8 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef.Configuration
         .HasKey(sc => sc.Id);
 
       builder
-        .Property(sc => sc.ServiceName)
-        .IsRequired();
+        .HasMany(v => v.Endpoints)
+        .WithOne(n => n.Service);
     }
   }
 }

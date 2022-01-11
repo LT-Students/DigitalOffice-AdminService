@@ -7,6 +7,8 @@ namespace LT.DigitalOffice.AdminService.Models.Dto.Configuration
 {
   public class RabbitMqConfig : BaseRabbitMqConfig
   {
+    public string CreateServiceEndpointsEndpoint { get; set; }
+
     [AutoInjectRequest(typeof(ICreateSmtpCredentialsRequest))]
     public string CreateSmtpCredentialsEndpoint { get; set; }
 

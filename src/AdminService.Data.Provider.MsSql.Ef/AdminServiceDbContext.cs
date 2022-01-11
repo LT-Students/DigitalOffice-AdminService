@@ -13,6 +13,7 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef
     }
 
     public DbSet<DbServiceConfiguration> ServicesConfigurations { get; set; }
+    public DbSet<DbServiceEndpoint> ServicesEndpoints { get; set; }
 
     // Fluent API is written here.
     protected override void OnModelCreating(ModelBuilder modelBuilder)

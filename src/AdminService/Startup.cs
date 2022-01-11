@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using HealthChecks.UI.Client;
+using LT.DigitalOffice.AdminService.Broker.Consumers;
 using LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef;
 using LT.DigitalOffice.AdminService.Models.Dto.Configuration;
 using LT.DigitalOffice.Kernel.BrokerSupport.Configurations;
@@ -220,8 +221,13 @@ namespace LT.DigitalOffice.AdminService
             host.Password(password);
           });
 
+          cfg.ReceiveEndpoint(_rabbitMqConfig.CreateServiceEndpointsEndpoint, ep =>
+          {
+            ep.ConfigureConsumer<CreateServiceEndpointsConsumer>(context);
+          });
         });
 
+        x.AddConsumer<CreateServiceEndpointsConsumer>();
         x.AddRequestClients(_rabbitMqConfig);
       });
 
