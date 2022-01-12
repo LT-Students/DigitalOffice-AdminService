@@ -18,7 +18,7 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef.Migrations
         {
           Id = table.Column<Guid>(nullable: false),
           ServiceId = table.Column<Guid>(nullable: false),
-          Endpoint = table.Column<string>(nullable: true)
+          Name = table.Column<string>(nullable: true)
         },
         constraints: table =>
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LT.DigitalOffice.AdminService.Data.Interfaces;
@@ -23,28 +24,36 @@ namespace LT.DigitalOffice.AdminService.Broker.Consumers
       _repository = repository;
     }
 
-    private async Task<bool> CreateEndpoints(ICreateServiceEndpointsRequest request)
-    {
+    private async Task<Dictionary<string, Guid>> CreateEndpoints(ICreateServiceEndpointsRequest request)
+    {  
       DbServiceConfiguration dbServiceConfiguration = await _repository.GetAsync(request.ServiceName);
       if (dbServiceConfiguration is null)
       {
-        return false;
+        return default;
       }
 
-      List<string> savedEndpoints = dbServiceConfiguration.Endpoints.Select(x => x.Endpoint).ToList();
-      List<string> newEndpoints = request.EndpointsNames.Where(x => !savedEndpoints.Contains(x)).ToList();
+      Dictionary<string, Guid> response = dbServiceConfiguration.Endpoints
+        .ToDictionary(x => x.Name, y => y.Id);
+     
+      List<string> savedEndpoints = dbServiceConfiguration.Endpoints.Select(x => x.Name).ToList();
 
-      return
-        newEndpoints.Any() ?
-        await _repository.CreateAsync(_mapper.Map(dbServiceConfiguration.Id, newEndpoints)) :
-        false;
+      List<DbServiceEndpoint> newDbServiceEndpoints = _mapper.Map(
+        dbServiceConfiguration.Id,
+        request.EndpointsNames.Where(x => !savedEndpoints.Contains(x)).ToList());
+
+      if (await _repository.CreateAsync(newDbServiceEndpoints))
+      {
+        newDbServiceEndpoints.Select(x => response.TryAdd(x.Name, x.Id));
+      }
+
+      return response;
     }
 
     public async Task Consume(ConsumeContext<ICreateServiceEndpointsRequest> context)
     {
       var response = OperationResultWrapper.CreateResponse(CreateEndpoints, context.Message);
 
-      await context.RespondAsync<IOperationResult<bool>>(response);
+      await context.RespondAsync<IOperationResult<Dictionary<string, Guid>>>(response);
     }
   }
 }

@@ -8,7 +8,7 @@ namespace LT.DigitalOffice.AdminService.Models.Db
 
     public Guid Id { get; set; }
     public Guid ServiceId { get; set; }
-    public string Endpoint { get; set; }
+    public string Name { get; set; }
 
     public DbServiceConfiguration Service { get; set; }
 

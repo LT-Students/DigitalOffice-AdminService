@@ -21,7 +21,7 @@ namespace LT.DigitalOffice.AdminService.Mappers.Db
           {
             Id = Guid.NewGuid(),
             ServiceId = serviceId,
-            Endpoint = endpoint,
+            Name = endpoint,
             Service = null
           })
         .ToList();
