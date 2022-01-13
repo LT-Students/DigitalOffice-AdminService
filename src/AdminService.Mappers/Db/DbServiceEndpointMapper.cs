@@ -12,7 +12,7 @@ namespace LT.DigitalOffice.AdminService.Mappers.Db
     {
       if (serviceEndpoints is null)
       {
-        return default;
+        return null;
       }
 
       return serviceEndpoints

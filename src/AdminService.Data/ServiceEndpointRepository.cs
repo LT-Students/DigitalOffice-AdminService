@@ -20,7 +20,7 @@ namespace LT.DigitalOffice.AdminService.Data
 
     public async Task<bool> CreateAsync(List<DbServiceEndpoint> servicesEndpoints)
     {
-      if (!servicesEndpoints.Any())
+      if (servicesEndpoints is null || !servicesEndpoints.Any())
       {
         return false;
       }
