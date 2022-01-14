@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef.Migrations
 {
   [DbContext(typeof(AdminServiceDbContext))]
-  [Migration("_20211123223000_InitialTable")]
+  [Migration("20211123223000_InitialTable")]
   public class InitialTable : Migration
   {
     protected override void Up(MigrationBuilder builder)

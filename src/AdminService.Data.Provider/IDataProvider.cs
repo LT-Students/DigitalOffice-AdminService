@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using LT.DigitalOffice.AdminService.Models.Db;
+﻿using LT.DigitalOffice.AdminService.Models.Db;
 using LT.DigitalOffice.Kernel.Attributes;
 using LT.DigitalOffice.Kernel.Database;
 using LT.DigitalOffice.Kernel.Enums;
@@ -11,5 +10,6 @@ namespace LT.DigitalOffice.AdminService.Data.Provider
   public interface IDataProvider : IBaseDataProvider
   {
     DbSet<DbServiceConfiguration> ServicesConfigurations { get; set; }
+    DbSet<DbServiceEndpoint> ServicesEndpoints { get; set; }
   }
 }

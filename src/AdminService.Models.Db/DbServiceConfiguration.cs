@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LT.DigitalOffice.AdminService.Models.Db
 {
@@ -11,5 +12,12 @@ namespace LT.DigitalOffice.AdminService.Models.Db
     public bool IsActive { get; set; }
     public Guid? ModifiedBy { get; set; }
     public DateTime? ModifiedAtUtc { get; set; }
+
+    public ICollection<DbServiceEndpoint> Endpoints { get; set; }
+
+    public DbServiceConfiguration()
+    {
+      Endpoints = new HashSet<DbServiceEndpoint>();
+    }
   }
 }
