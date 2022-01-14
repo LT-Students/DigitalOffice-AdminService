@@ -54,7 +54,8 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef.Migrations
           { Guid.NewGuid(), "EducationService", true, null, null },
           { Guid.NewGuid(), "DepartmentService", true, null, null },
           { Guid.NewGuid(), "CompanyService", true, null, null },
-          { Guid.NewGuid(), "AchievementService", true, null, null }
+          { Guid.NewGuid(), "AchievementService", true, null, null },
+          { Guid.NewGuid(), "UserService", true, null, null }
         });
     }
 
