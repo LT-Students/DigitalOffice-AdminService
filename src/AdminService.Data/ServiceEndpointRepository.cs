@@ -18,14 +18,14 @@ namespace LT.DigitalOffice.AdminService.Data
       _provider = provider;
     }
 
-    public async Task<bool> CreateAsync(List<DbServiceEndpoint> servicesEndpoints)
+    public async Task<bool> CreateAsync(List<DbServiceEndpoint> dbServicesEndpoints)
     {
-      if (servicesEndpoints is null || !servicesEndpoints.Any())
+      if (dbServicesEndpoints is null || !dbServicesEndpoints.Any())
       {
         return false;
       }
 
-      _provider.ServicesEndpoints.AddRange(servicesEndpoints);
+      _provider.ServicesEndpoints.AddRange(dbServicesEndpoints);
       await _provider.SaveAsync();
 
       return true;
