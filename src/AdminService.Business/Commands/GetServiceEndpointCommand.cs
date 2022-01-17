@@ -22,7 +22,7 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
 
     public GetServiceEndpointCommand(
       IServiceConfigurationRepository configurationRepository,
-      IServiceEndpointRepository repository,
+      IServiceEndpointRepository endpointRepository,
       IEndpointInfoMapper mapper,
       IResponseCreator responseCreator)
     {
