@@ -98,7 +98,7 @@ namespace LT.DigitalOffice.AdminService.Data
       DbServiceConfiguration dbServiceConfiguration = await _provider.ServicesConfigurations
         .FirstOrDefaultAsync(x => x.Id == serviceId);
 
-      if(dbServiceConfiguration is null)
+      if (dbServiceConfiguration is null)
       {
         return null;
       }
