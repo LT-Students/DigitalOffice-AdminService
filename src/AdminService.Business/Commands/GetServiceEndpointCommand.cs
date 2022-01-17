@@ -27,7 +27,7 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
       IResponseCreator responseCreator)
     {
       _configurationRepository = configurationRepository;
-      _endpointRepository = repository;
+      _endpointRepository = endpointRepository;
       _mapper = mapper;
       _responseCreator = responseCreator;
     }
