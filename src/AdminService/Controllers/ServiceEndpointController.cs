@@ -12,7 +12,7 @@ namespace LT.DigitalOffice.AdminService.Controllers
   public class ServiceEndpointController : ControllerBase
   {
     [HttpGet("get")]
-    public async Task<OperationResultResponse<ServiceEndpointsInfo>> SomeGet(
+    public async Task<OperationResultResponse<ServiceEndpointsInfo>> GetAsync(
       [FromServices] IGetServiceEndpointCommand command,
       [FromQuery] Guid serviceId)
     {

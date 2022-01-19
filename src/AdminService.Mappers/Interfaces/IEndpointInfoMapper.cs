@@ -7,6 +7,6 @@ namespace LT.DigitalOffice.AdminService.Mappers.Interfaces
   [AutoInject]
   public interface IEndpointInfoMapper
   {
-    public EndpointInfo Map(DbServiceEndpoint endpoint);
+    ServiceEndpointsInfo Map(DbServiceConfiguration dbConfig);
   }
 }

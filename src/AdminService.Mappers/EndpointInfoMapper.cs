@@ -1,4 +1,5 @@
-﻿using LT.DigitalOffice.AdminService.Mappers.Interfaces;
+﻿using System.Linq;
+using LT.DigitalOffice.AdminService.Mappers.Interfaces;
 using LT.DigitalOffice.AdminService.Models.Db;
 using LT.DigitalOffice.AdminService.Models.Dto.Models;
 
@@ -6,17 +7,17 @@ namespace LT.DigitalOffice.AdminService.Mappers
 {
   public class EndpointInfoMapper : IEndpointInfoMapper
   {
-    public EndpointInfo Map(DbServiceEndpoint endpoint)
+    public ServiceEndpointsInfo Map(DbServiceConfiguration dbConfig)
     {
-      if (endpoint is null)
+      return new ServiceEndpointsInfo()
       {
-        return null;
-      }
-
-      return new EndpointInfo()
-      {
-        Id = endpoint.Id,
-        Name = endpoint.Name,
+        ServiceId = dbConfig.Id,
+        ServiceName = dbConfig.ServiceName,
+        Endpoints = dbConfig.Endpoints?.Select(x => new EndpointInfo
+        {
+          Id = x.Id,
+          Name = x.Name,
+        }).ToList()
       };
     }
   }

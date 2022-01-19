@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using LT.DigitalOffice.AdminService.Business.Commands.Interfaces;
@@ -7,7 +6,6 @@ using LT.DigitalOffice.AdminService.Data.Interfaces;
 using LT.DigitalOffice.AdminService.Mappers.Interfaces;
 using LT.DigitalOffice.AdminService.Models.Db;
 using LT.DigitalOffice.AdminService.Models.Dto.Models;
-using LT.DigitalOffice.Kernel.Enums;
 using LT.DigitalOffice.Kernel.Helpers.Interfaces;
 using LT.DigitalOffice.Kernel.Responses;
 
@@ -34,22 +32,18 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
       ServiceEndpointsInfo serviceEndpointsInfo = new ServiceEndpointsInfo();
 
       DbServiceConfiguration dbServiceConfiguration = await _configurationRepository
-        .GetServiceAsync(serviceId);   
+        .GetAsync(serviceId);
 
       if (dbServiceConfiguration is null)
       {
         return _responseCreator.CreateFailureResponse<ServiceEndpointsInfo>(HttpStatusCode.NotFound);
       }
 
-      serviceEndpointsInfo.ServiceId = serviceId;
-      serviceEndpointsInfo.ServiceName = dbServiceConfiguration.ServiceName;
-      serviceEndpointsInfo.Endpoints = dbServiceConfiguration.Endpoints?.Select(x => _mapper.Map(x)).ToList();
+      serviceEndpointsInfo = _mapper.Map(dbServiceConfiguration);
 
       return new OperationResultResponse<ServiceEndpointsInfo>()
       {
         Body = serviceEndpointsInfo,
-        Status = OperationResultStatusType.FullSuccess,
-        Errors = null
       };
     }
   }
