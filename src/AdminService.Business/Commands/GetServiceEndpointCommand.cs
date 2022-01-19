@@ -29,8 +29,6 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
 
     public async Task<OperationResultResponse<ServiceEndpointsInfo>> ExecuteAsync(Guid serviceId)
     {
-      ServiceEndpointsInfo serviceEndpointsInfo = new ServiceEndpointsInfo();
-
       DbServiceConfiguration dbServiceConfiguration = await _configurationRepository
         .GetAsync(serviceId);
 
@@ -39,11 +37,9 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
         return _responseCreator.CreateFailureResponse<ServiceEndpointsInfo>(HttpStatusCode.NotFound);
       }
 
-      serviceEndpointsInfo = _mapper.Map(dbServiceConfiguration);
-
       return new OperationResultResponse<ServiceEndpointsInfo>()
       {
-        Body = serviceEndpointsInfo,
+        Body = _mapper.Map(dbServiceConfiguration),
       };
     }
   }
