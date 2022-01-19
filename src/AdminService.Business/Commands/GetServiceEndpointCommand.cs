@@ -14,12 +14,12 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
   public class GetServiceEndpointCommand : IGetServiceEndpointCommand
   {
     private readonly IServiceConfigurationRepository _configurationRepository;
-    private readonly IEndpointInfoMapper _mapper;
+    private readonly IServiceEndpointsInfoMapper _mapper;
     private readonly IResponseCreator _responseCreator;
 
     public GetServiceEndpointCommand(
       IServiceConfigurationRepository configurationRepository,
-      IEndpointInfoMapper mapper,
+      IServiceEndpointsInfoMapper mapper,
       IResponseCreator responseCreator)
     {
       _configurationRepository = configurationRepository;
