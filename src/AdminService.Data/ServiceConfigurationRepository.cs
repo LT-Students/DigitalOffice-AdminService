@@ -93,9 +93,10 @@ namespace LT.DigitalOffice.AdminService.Data
         .FirstAsync()).ModifiedAtUtc != default;
     }
 
-    public async Task<string> GetServiceNameAsync(Guid serviceId)
+    public async Task<DbServiceConfiguration> GetServiceAsync(Guid serviceId)
     {
       DbServiceConfiguration dbServiceConfiguration = await _provider.ServicesConfigurations
+        .Include(x => x.Endpoints)
         .FirstOrDefaultAsync(x => x.Id == serviceId);
 
       if (dbServiceConfiguration is null)
@@ -103,7 +104,7 @@ namespace LT.DigitalOffice.AdminService.Data
         return null;
       }
 
-      return dbServiceConfiguration.ServiceName;
+      return dbServiceConfiguration;
     }
   }
 }

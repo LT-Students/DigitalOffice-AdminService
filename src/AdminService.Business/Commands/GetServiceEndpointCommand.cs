@@ -16,18 +16,15 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
   public class GetServiceEndpointCommand : IGetServiceEndpointCommand
   {
     private readonly IServiceConfigurationRepository _configurationRepository;
-    private readonly IServiceEndpointRepository _endpointRepository;
     private readonly IEndpointInfoMapper _mapper;
     private readonly IResponseCreator _responseCreator;
 
     public GetServiceEndpointCommand(
       IServiceConfigurationRepository configurationRepository,
-      IServiceEndpointRepository endpointRepository,
       IEndpointInfoMapper mapper,
       IResponseCreator responseCreator)
     {
       _configurationRepository = configurationRepository;
-      _endpointRepository = endpointRepository;
       _mapper = mapper;
       _responseCreator = responseCreator;
     }
@@ -36,23 +33,17 @@ namespace LT.DigitalOffice.AdminService.Business.Commands
     {
       ServiceEndpointsInfo serviceEndpointsInfo = new ServiceEndpointsInfo();
 
-      serviceEndpointsInfo.ServiceName = await _configurationRepository.GetServiceNameAsync(serviceId);
+      DbServiceConfiguration dbServiceConfiguration = await _configurationRepository
+        .GetServiceAsync(serviceId);   
+
+      if (dbServiceConfiguration is null)
+      {
+        return _responseCreator.CreateFailureResponse<ServiceEndpointsInfo>(HttpStatusCode.NotFound);
+      }
+
       serviceEndpointsInfo.ServiceId = serviceId;
-
-      if (serviceEndpointsInfo.ServiceName is null)
-      {
-        return _responseCreator.CreateFailureResponse<ServiceEndpointsInfo>(HttpStatusCode.NotFound);
-      }
-
-      DbServiceConfiguration dbServiceConfiguration = await _endpointRepository
-        .GetAsync(serviceEndpointsInfo.ServiceName);
-
-      if (dbServiceConfiguration.Endpoints is null)
-      {
-        return _responseCreator.CreateFailureResponse<ServiceEndpointsInfo>(HttpStatusCode.NotFound);
-      }
-
-      serviceEndpointsInfo.Endpoints = dbServiceConfiguration.Endpoints.Select(x => _mapper.Map(x)).ToList();
+      serviceEndpointsInfo.ServiceName = dbServiceConfiguration.ServiceName;
+      serviceEndpointsInfo.Endpoints = dbServiceConfiguration.Endpoints?.Select(x => _mapper.Map(x)).ToList();
 
       return new OperationResultResponse<ServiceEndpointsInfo>()
       {

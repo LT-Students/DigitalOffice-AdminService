@@ -18,6 +18,6 @@ namespace LT.DigitalOffice.AdminService.Data.Interfaces
 
     Task<bool> DoesAppInstalledAsync();
 
-    Task<string> GetServiceNameAsync(Guid serviceId);
+    Task<DbServiceConfiguration> GetServiceAsync(Guid serviceId);
   }
 }
