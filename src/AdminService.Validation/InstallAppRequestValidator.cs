@@ -107,6 +107,9 @@ namespace LT.DigitalOffice.AdminService.Validation
           RuleFor(request => request.SmtpInfo.Password)
             .NotEmpty().WithMessage("Password can't be empty.");
         });
+
+      RuleFor(request => request.ServicesToDisable)
+        .NotNull().WithMessage("Service to disable can not be null");
     }
   }
 }
