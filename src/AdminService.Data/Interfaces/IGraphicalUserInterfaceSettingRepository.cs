@@ -9,5 +9,7 @@ namespace LT.DigitalOffice.AdminService.Data.Interfaces
   public interface IGraphicalUserInterfaceSettingRepository
   {
     Task<Guid?> Create(DbGraphicalUserInterfaceSetting request);
+
+    Task<DbGraphicalUserInterfaceSetting> Get();
   }
 }

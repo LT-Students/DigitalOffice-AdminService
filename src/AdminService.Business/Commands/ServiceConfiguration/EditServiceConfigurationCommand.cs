@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using LT.DigitalOffice.AdminService.Business.Commands.Interfaces;
+using LT.DigitalOffice.AdminService.Business.Commands.ServiceConfiguration.Interfaces;
 using LT.DigitalOffice.AdminService.Data.Interfaces;
 using LT.DigitalOffice.Kernel.BrokerSupport.AccessValidatorEngine.Interfaces;
 using LT.DigitalOffice.Kernel.Enums;
 using LT.DigitalOffice.Kernel.Helpers.Interfaces;
 using LT.DigitalOffice.Kernel.Responses;
 
-namespace LT.DigitalOffice.AdminService.Business.Commands
+namespace LT.DigitalOffice.AdminService.Business.Commands.ServiceConfiguration
 {
   public class EditServiceConfigurationCommand : IEditServiceConfigurationCommand
   {

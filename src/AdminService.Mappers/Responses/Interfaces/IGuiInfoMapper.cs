@@ -2,11 +2,11 @@
 using LT.DigitalOffice.AdminService.Models.Dto.Models;
 using LT.DigitalOffice.Kernel.Attributes;
 
-namespace LT.DigitalOffice.AdminService.Mappers.Interfaces
+namespace LT.DigitalOffice.AdminService.Mappers.Responses.Interfaces
 {
   [AutoInject]
-  public interface IServiceEndpointsInfoMapper
+  public interface IGuiInfoMapper
   {
-    ServiceEndpointsInfo Map(DbServiceConfiguration dbConfig);
+    GuiInfo Map(DbGraphicalUserInterfaceSetting dbGui);
   }
 }

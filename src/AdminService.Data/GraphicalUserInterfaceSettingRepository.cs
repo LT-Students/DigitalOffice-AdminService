@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using LT.DigitalOffice.AdminService.Data.Interfaces;
 using LT.DigitalOffice.AdminService.Data.Provider;
 using LT.DigitalOffice.AdminService.Models.Db;
+using Microsoft.EntityFrameworkCore;
 
 namespace LT.DigitalOffice.AdminService.Data
 {
@@ -25,6 +26,12 @@ namespace LT.DigitalOffice.AdminService.Data
       await _provider.SaveAsync();
 
       return request.Id;
+    }
+
+    public async Task<DbGraphicalUserInterfaceSetting> Get()
+    {
+      return await _provider
+        .GraphicalUserInterfaceSettings.FirstOrDefaultAsync();
     }
   }
 }

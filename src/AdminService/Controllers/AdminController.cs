@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using LT.DigitalOffice.AdminService.Business.Commands.Interfaces;
+using LT.DigitalOffice.AdminService.Business.Commands.ServiceConfiguration.Interfaces;
 using LT.DigitalOffice.AdminService.Models.Dto.Models;
 using LT.DigitalOffice.AdminService.Models.Dto.Requests;
 using LT.DigitalOffice.Kernel.Requests;

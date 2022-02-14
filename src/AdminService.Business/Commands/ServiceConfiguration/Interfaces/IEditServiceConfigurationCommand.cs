@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using LT.DigitalOffice.Kernel.Attributes;
 using LT.DigitalOffice.Kernel.Responses;
 
-namespace LT.DigitalOffice.AdminService.Business.Commands.Interfaces
+namespace LT.DigitalOffice.AdminService.Business.Commands.ServiceConfiguration.Interfaces
 {
   [AutoInject]
   public interface IEditServiceConfigurationCommand
