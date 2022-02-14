@@ -49,7 +49,7 @@ namespace LT.DigitalOffice.AdminService
         .GetSection(BaseServiceInfoConfig.SectionName)
         .Get<BaseServiceInfoConfig>();
 
-      Version = "1.0.1.0";
+      Version = "1.0.1.1";
       Description = "AdminService is an API that intended to work with app installation.";
       StartTime = DateTime.UtcNow;
       ApiName = $"LT Digital Office - {_serviceInfoConfig.Name}";
