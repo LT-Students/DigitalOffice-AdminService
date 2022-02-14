@@ -1,9 +1,10 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Linq;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
 using FluentValidation;
 using LT.DigitalOffice.AdminService.Models.Dto.Requests;
 using LT.DigitalOffice.AdminService.Validation.Interfaces;
-using System.Linq;
-using System.Net.Mail;
+using LT.DigitalOffice.Kernel.Validators.Interfaces;
 
 namespace LT.DigitalOffice.AdminService.Validation
 {
@@ -12,7 +13,9 @@ namespace LT.DigitalOffice.AdminService.Validation
     private static Regex NameRegex = new(@"^([a-zA-Zа-яА-ЯёЁ]+|[a-zA-Zа-яА-ЯёЁ]+[-|']?[a-zA-Zа-яА-ЯёЁ]+|[a-zA-Zа-яА-ЯёЁ]+[-|']?[a-zA-Zа-яА-ЯёЁ]+[-|']?[a-zA-Zа-яА-ЯёЁ]+)$");
     private static Regex PasswordRegex = new(@"(?=.*[.,:;?!*+%\-<>@[\]{}/\\_{}$#])");
 
-    public InstallAppRequestValidator()
+    public InstallAppRequestValidator(
+      IImageContentValidator imageContentValidator,
+      IImageExtensionValidator imageExtensionValidator)
     {
       RuleFor(request => request.AdminInfo)
         .Cascade(CascadeMode.Stop)
@@ -75,9 +78,10 @@ namespace LT.DigitalOffice.AdminService.Validation
               }
             })
             .WithMessage("Incorrect email address.");
-      });
+        });
 
       RuleFor(request => request.SmtpInfo)
+        .Cascade(CascadeMode.Stop)
         .NotNull().WithMessage("Smtp information can't be null.")
         .DependentRules(() =>
         {
@@ -106,6 +110,24 @@ namespace LT.DigitalOffice.AdminService.Validation
 
           RuleFor(request => request.SmtpInfo.Password)
             .NotEmpty().WithMessage("Password can't be empty.");
+        });
+
+      RuleFor(request => request.GuiInfo)
+        .Cascade(CascadeMode.Stop)
+        .NotNull().WithMessage("Gui information can't be null.")
+        .DependentRules(() =>
+        {
+          RuleFor(r => r.GuiInfo.SiteUrl)
+            .NotEmpty().WithMessage("First name cannot be empty.");
+
+          When(r => r.GuiInfo.LogoContent != null || r.GuiInfo.LogoExtension != null, () =>
+          {
+            RuleFor(r => r.GuiInfo.LogoContent)
+              .SetValidator(imageContentValidator);
+
+            RuleFor(r => r.GuiInfo.LogoExtension)
+              .SetValidator(imageExtensionValidator);
+          });
         });
 
       RuleFor(request => request.ServicesToDisable)

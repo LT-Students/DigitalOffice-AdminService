@@ -9,6 +9,7 @@ namespace LT.DigitalOffice.AdminService.Data.Provider
   [AutoInject(InjectType.Scoped)]
   public interface IDataProvider : IBaseDataProvider
   {
+    DbSet<DbGraphicalUserInterfaceSetting> GraphicalUserInterfaceSettings { get; set; }
     DbSet<DbServiceConfiguration> ServicesConfigurations { get; set; }
     DbSet<DbServiceEndpoint> ServicesEndpoints { get; set; }
   }

@@ -3,8 +3,12 @@
   <Import Project="$(ProjectDir)..\..\Common.Configurations.targets" />
 
   <ItemGroup>
-    <Folder Include="Requests\Filters\" />
-    <Folder Include="Responses\" />
+    <Compile Remove="Requests\Filters\**" />
+    <Compile Remove="Responses\**" />
+    <EmbeddedResource Remove="Requests\Filters\**" />
+    <EmbeddedResource Remove="Responses\**" />
+    <None Remove="Requests\Filters\**" />
+    <None Remove="Responses\**" />
   </ItemGroup>
 
 </Project>
