@@ -5,6 +5,7 @@ namespace LT.DigitalOffice.AdminService.Models.Db
   public class DbGraphicalUserInterfaceSetting
   {
     public const string TableName = "GraphicalUserInterfaceSettings";
+
     public Guid Id { get; set; }
     public string PortalName { get; set; }
     public string LogoContent { get; set; }
