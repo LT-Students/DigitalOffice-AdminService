@@ -49,7 +49,7 @@ namespace LT.DigitalOffice.AdminService
         .GetSection(BaseServiceInfoConfig.SectionName)
         .Get<BaseServiceInfoConfig>();
 
-      Version = "1.0.1.0";
+      Version = "1.0.1.1";
       Description = "AdminService is an API that intended to work with app installation.";
       StartTime = DateTime.UtcNow;
       ApiName = $"LT Digital Office - {_serviceInfoConfig.Name}";
@@ -102,11 +102,11 @@ namespace LT.DigitalOffice.AdminService
       {
         connStr = Configuration.GetConnectionString("SQLConnectionString");
 
-        Log.Information($"SQL connection string from appsettings.json was used. Value '{HidePasswordHelper.HidePassword(connStr)}'.");
+        Log.Information($"SQL connection string from appsettings.json was used. Value '{PasswordHider.Hide(connStr)}'.");
       }
       else
       {
-        Log.Information($"SQL connection string from environment was used. Value '{HidePasswordHelper.HidePassword(connStr)}'.");
+        Log.Information($"SQL connection string from environment was used. Value '{PasswordHider.Hide(connStr)}'.");
       }
 
       services.AddDbContext<AdminServiceDbContext>(options =>
@@ -124,11 +124,11 @@ namespace LT.DigitalOffice.AdminService
       {
         redisConnStr = Configuration.GetConnectionString("Redis");
 
-        Log.Information($"Redis connection string from appsettings.json was used. Value '{HidePasswordHelper.HidePassword(redisConnStr)}'");
+        Log.Information($"Redis connection string from appsettings.json was used. Value '{PasswordHider.Hide(redisConnStr)}'");
       }
       else
       {
-        Log.Information($"Redis connection string from environment was used. Value '{HidePasswordHelper.HidePassword(redisConnStr)}'");
+        Log.Information($"Redis connection string from environment was used. Value '{PasswordHider.Hide(redisConnStr)}'");
       }
 
       services.AddSingleton<IConnectionMultiplexer>(

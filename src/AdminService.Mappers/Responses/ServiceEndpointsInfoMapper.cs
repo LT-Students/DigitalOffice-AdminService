@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using LT.DigitalOffice.AdminService.Mappers.Interfaces;
+using LT.DigitalOffice.AdminService.Mappers.Responses.Interfaces;
 using LT.DigitalOffice.AdminService.Models.Db;
 using LT.DigitalOffice.AdminService.Models.Dto.Models;
 
-namespace LT.DigitalOffice.AdminService.Mappers
+namespace LT.DigitalOffice.AdminService.Mappers.Responses
 {
   public class ServiceEndpointsInfoMapper : IServiceEndpointsInfoMapper
   {
