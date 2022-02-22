@@ -12,19 +12,6 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef.Migrations
     protected override void Up(MigrationBuilder migrationBuilder)
     {
       migrationBuilder.CreateTable(
-        name: DbServiceEndpoint.TableName,
-        columns: table => new
-        {
-          Id = table.Column<Guid>(nullable: false),
-          ServiceId = table.Column<Guid>(nullable: false),
-          Name = table.Column<string>(nullable: false)
-        },
-        constraints: table =>
-        {
-          table.PrimaryKey($"PK_{DbServiceEndpoint.TableName}", x => x.Id);
-        });
-
-      migrationBuilder.CreateTable(
         name: DbGraphicalUserInterfaceSetting.TableName,
         columns: table => new
         {
@@ -92,9 +79,6 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef.Migrations
 
     protected override void Down(MigrationBuilder builder)
     {
-      builder.DropTable(
-        name: DbServiceEndpoint.TableName);
-
       builder.DropTable(
         name: DbGraphicalUserInterfaceSetting.TableName);
 

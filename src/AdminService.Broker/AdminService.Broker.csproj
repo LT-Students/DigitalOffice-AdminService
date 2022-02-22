@@ -7,4 +7,8 @@
     <ProjectReference Include="..\AdminService.Mappers\AdminService.Mappers.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Consumers\" />
+  </ItemGroup>
+
 </Project>
