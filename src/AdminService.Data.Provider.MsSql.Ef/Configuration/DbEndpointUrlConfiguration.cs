@@ -13,8 +13,6 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef.Configuration
 
       builder
         .HasKey(eu => eu.Id);
-
-
     }
   }
 }
