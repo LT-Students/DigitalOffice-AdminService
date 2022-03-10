@@ -7,14 +7,9 @@ namespace LT.DigitalOffice.AdminService.Models.Db
     public const string TableName = "ServicesEndpoints";
 
     public Guid Id { get; set; }
-    public Guid ServiceId { get; set; }
+    public Guid EndpointId { get; set; }
+    public string Locale { get; set; }
     public string Name { get; set; }
-
-    public DbServiceConfiguration Service { get; set; }
-
-    public DbServiceEndpoint()
-    {
-      Service = new DbServiceConfiguration();
-    }
+    public string Description { get; set; }
   }
 }
