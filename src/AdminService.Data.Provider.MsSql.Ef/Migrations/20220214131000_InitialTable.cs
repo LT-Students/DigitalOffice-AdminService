@@ -69,7 +69,7 @@ namespace LT.DigitalOffice.AdminService.Data.Provider.MsSql.Ef.Migrations
         },
         constraints: table =>
         {
-          table.PrimaryKey($"PK_{DbServiceEndpoint.TableName}", x => x.Id);
+          table.PrimaryKey($"PK_{DbEndpointUrl.TableName}", x => x.Id);
         });
 
       migrationBuilder.InsertData(
