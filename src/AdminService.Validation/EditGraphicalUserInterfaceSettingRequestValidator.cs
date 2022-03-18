@@ -69,8 +69,7 @@ public class EditGraphicalUserInterfaceSettingRequestValidator
         { x =>
           {
             ImageConsist image = JsonConvert.DeserializeObject<ImageConsist>(x.value?.ToString());
-            var a = _imageContentValidator.Validate(image.Content).IsValid;
-            var v = _imageExtensionValidator.Validate(image.Extension).IsValid;
+
             return image is null
               ? true
               : _imageContentValidator.Validate(image.Content).IsValid &&
