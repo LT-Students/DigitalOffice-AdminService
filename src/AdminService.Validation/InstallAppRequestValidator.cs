@@ -120,12 +120,12 @@ namespace LT.DigitalOffice.AdminService.Validation
           RuleFor(r => r.GuiInfo.SiteUrl)
             .NotEmpty().WithMessage("First name cannot be empty.");
 
-          When(r => r.GuiInfo.LogoContent != null || r.GuiInfo.LogoExtension != null, () =>
+          When(r => r.GuiInfo.Logo is not null, () =>
           {
-            RuleFor(r => r.GuiInfo.LogoContent)
+            RuleFor(r => r.GuiInfo.Logo.Content)
               .SetValidator(imageContentValidator);
 
-            RuleFor(r => r.GuiInfo.LogoExtension)
+            RuleFor(r => r.GuiInfo.Logo.Extension)
               .SetValidator(imageExtensionValidator);
           });
         });

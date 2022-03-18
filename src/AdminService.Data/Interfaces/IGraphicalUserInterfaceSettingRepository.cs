@@ -2,14 +2,16 @@
 using System.Threading.Tasks;
 using LT.DigitalOffice.AdminService.Models.Db;
 using LT.DigitalOffice.Kernel.Attributes;
+using Microsoft.AspNetCore.JsonPatch;
 
-namespace LT.DigitalOffice.AdminService.Data.Interfaces
+namespace LT.DigitalOffice.AdminService.Data.Interfaces;
+
+[AutoInject]
+public interface IGraphicalUserInterfaceSettingRepository
 {
-  [AutoInject]
-  public interface IGraphicalUserInterfaceSettingRepository
-  {
-    Task<Guid?> Create(DbGraphicalUserInterfaceSetting request);
+  Task<Guid?> CreateAsync(DbGraphicalUserInterfaceSetting request);
 
-    Task<DbGraphicalUserInterfaceSetting> Get();
-  }
+  Task<bool> EditAsync(JsonPatchDocument<DbGraphicalUserInterfaceSetting> patch);
+
+  Task<DbGraphicalUserInterfaceSetting> GetAsync();
 }
