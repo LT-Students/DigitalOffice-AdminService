@@ -17,8 +17,11 @@ namespace LT.DigitalOffice.AdminService.Mappers.Responses
       {
         Id = dbGui.Id,
         PortalName = dbGui.PortalName,
-        LogoContent = dbGui.LogoContent,
-        LogoExtension = dbGui.LogoExtension,
+        Logo = new ImageConsist 
+        {
+          Content = dbGui.LogoContent,
+          Extension = dbGui.LogoExtension
+        },
         SiteUrl = dbGui.SiteUrl
       };
     }

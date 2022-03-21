@@ -18,8 +18,8 @@ namespace LT.DigitalOffice.AdminService.Mappers.Db
       {
         Id = Guid.NewGuid(),
         PortalName = request.PortalName,
-        LogoContent = request.LogoContent,
-        LogoExtension = request.LogoExtension,
+        LogoContent = request.Logo?.Content,
+        LogoExtension = request.Logo?.Extension,
         SiteUrl = request.SiteUrl,
         CreatedAtUtc = DateTime.UtcNow
       };

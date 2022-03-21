@@ -24,7 +24,7 @@ namespace LT.DigitalOffice.AdminService.Business.Commands.GraphicalUserInterface
     {
       return new()
       {
-        Body = _mapper.Map(await _repository.Get())
+        Body = _mapper.Map(await _repository.GetAsync())
       };
     }
   }
