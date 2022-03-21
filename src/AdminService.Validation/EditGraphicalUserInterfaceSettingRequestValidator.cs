@@ -30,7 +30,7 @@ public class EditGraphicalUserInterfaceSettingRequestValidator
       {
         nameof(EditGraphicalUserInterfaceSettingRequest.PortalName),
         nameof(EditGraphicalUserInterfaceSettingRequest.SiteUrl),
-        nameof(EditGraphicalUserInterfaceSettingRequest.Image)
+        nameof(EditGraphicalUserInterfaceSettingRequest.Logo)
       });
 
     AddСorrectOperations(
@@ -42,7 +42,7 @@ public class EditGraphicalUserInterfaceSettingRequestValidator
       new List<OperationType> { OperationType.Replace });
 
     AddСorrectOperations(
-      nameof(EditGraphicalUserInterfaceSettingRequest.Image),
+      nameof(EditGraphicalUserInterfaceSettingRequest.Logo),
       new List<OperationType> { OperationType.Replace });
 
     #endregion
@@ -62,7 +62,7 @@ public class EditGraphicalUserInterfaceSettingRequestValidator
     #region Image
 
     AddFailureForPropertyIf(
-      nameof(EditGraphicalUserInterfaceSettingRequest.Image),
+      nameof(EditGraphicalUserInterfaceSettingRequest.Logo),
       x => x == OperationType.Replace,
       new Dictionary<Func<Operation<EditGraphicalUserInterfaceSettingRequest>, bool>, string>
       {

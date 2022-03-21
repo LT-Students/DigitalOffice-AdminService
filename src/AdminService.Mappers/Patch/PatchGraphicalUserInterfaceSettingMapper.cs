@@ -31,7 +31,7 @@ public class PatchGraphicalUserInterfaceSettingMapper : IPatchGraphicalUserInter
 
     foreach (Operation<EditGraphicalUserInterfaceSettingRequest> item in request.Operations)
     {
-      if (item.path.EndsWith(nameof(EditGraphicalUserInterfaceSettingRequest.Image)))
+      if (item.path.EndsWith(nameof(EditGraphicalUserInterfaceSettingRequest.Logo)))
       {
         ImageConsist image = JsonConvert.DeserializeObject<ImageConsist>(item.value.ToString());
 
