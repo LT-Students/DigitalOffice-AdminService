@@ -12,6 +12,7 @@ namespace LT.DigitalOffice.AdminService.Validation
   {
     private static Regex NameRegex = new(@"^([a-zA-Zа-яА-ЯёЁ]+|[a-zA-Zа-яА-ЯёЁ]+[-|']?[a-zA-Zа-яА-ЯёЁ]+|[a-zA-Zа-яА-ЯёЁ]+[-|']?[a-zA-Zа-яА-ЯёЁ]+[-|']?[a-zA-Zа-яА-ЯёЁ]+)$");
     private static Regex PasswordRegex = new(@"(?=.*[.,:;?!*+%\-<>@[\]{}/\\_{}$#])");
+    private static Regex LoginRegex = new(@"^[a-zA-Z0-9]+$");
 
     public InstallAppRequestValidator(
       IImageContentValidator imageContentValidator,
@@ -57,10 +58,10 @@ namespace LT.DigitalOffice.AdminService.Validation
             .Cascade(CascadeMode.Stop)
             .NotEmpty().WithMessage("Login can't be empty.")
             .Must(x => char.IsLetter(x[0])).WithMessage("Login must start with a letter.")
-            .MinimumLength(3).WithMessage("Login is too short.")
+            .MinimumLength(6).WithMessage("Login is too short.")
             .MaximumLength(15).WithMessage("Login is too long.")
-            .Must(x => x.All(char.IsLetterOrDigit))
-            .WithMessage("Login must contain only letters or digits.");
+            .Must(x => LoginRegex.IsMatch(x))
+            .WithMessage("Login must contain only Latin letters or digits.");
 
           RuleFor(request => request.AdminInfo.Email)
             .Cascade(CascadeMode.Stop)
@@ -118,7 +119,7 @@ namespace LT.DigitalOffice.AdminService.Validation
         .DependentRules(() =>
         {
           RuleFor(r => r.GuiInfo.SiteUrl)
-            .NotEmpty().WithMessage("First name cannot be empty.");
+            .NotEmpty().WithMessage("Url can't be empty.");
 
           When(r => r.GuiInfo.Logo is not null, () =>
           {
