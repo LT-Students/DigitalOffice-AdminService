@@ -12,7 +12,7 @@ namespace LT.DigitalOffice.AdminService.Validation
   {
     private static Regex NameRegex = new(@"^([a-zA-Zа-яА-ЯёЁ]+|[a-zA-Zа-яА-ЯёЁ]+[-|']?[a-zA-Zа-яА-ЯёЁ]+|[a-zA-Zа-яА-ЯёЁ]+[-|']?[a-zA-Zа-яА-ЯёЁ]+[-|']?[a-zA-Zа-яА-ЯёЁ]+)$");
     private static Regex PasswordRegex = new(@"(?=.*[.,:;?!*+%\-<>@[\]{}/\\_{}$#])");
-    private static Regex LoginRegex = new(@"^[a-zA-Z0-9]+$");
+    private static Regex LoginRegex = new(@"^([a-zA-Z]+)$|^([a-zA-Z0-9]*[0-9]+[a-zA-Z]+[0-9]*)$|^([a-zA-Z]+[0-9]+)$");
 
     public InstallAppRequestValidator(
       IImageContentValidator imageContentValidator,
@@ -57,11 +57,10 @@ namespace LT.DigitalOffice.AdminService.Validation
           RuleFor(request => request.AdminInfo.Login)
             .Cascade(CascadeMode.Stop)
             .NotEmpty().WithMessage("Login can't be empty.")
-            .Must(x => char.IsLetter(x[0])).WithMessage("Login must start with a letter.")
-            .MinimumLength(6).WithMessage("Login is too short.")
+            .MinimumLength(5).WithMessage("Login is too short.")
             .MaximumLength(15).WithMessage("Login is too long.")
             .Must(x => LoginRegex.IsMatch(x))
-            .WithMessage("Login must contain only Latin letters or digits.");
+            .WithMessage("Login must contain only Latin letters and digits.");
 
           RuleFor(request => request.AdminInfo.Email)
             .Cascade(CascadeMode.Stop)
