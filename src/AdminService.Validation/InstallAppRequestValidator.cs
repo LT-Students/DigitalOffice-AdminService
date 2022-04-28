@@ -60,7 +60,7 @@ namespace LT.DigitalOffice.AdminService.Validation
             .MinimumLength(5).WithMessage("Login is too short.")
             .MaximumLength(15).WithMessage("Login is too long.")
             .Must(x => LoginRegex.IsMatch(x))
-            .WithMessage("Login must contain only Latin letters and digits.");
+            .WithMessage("Login must contain only Latin letters and digits or only Latin letters.");
 
           RuleFor(request => request.AdminInfo.Email)
             .Cascade(CascadeMode.Stop)
